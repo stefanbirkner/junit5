@@ -80,8 +80,8 @@ class TestClassRequestResolverTests {
 		TestDescriptor engineDescriptor = new EngineDescriptor(VintageUniqueIdBuilder.engineId(), "JUnit 4");
 		RecordCollectingLogger logger = new RecordCollectingLogger();
 
-		TestClassRequestResolver resolver = new TestClassRequestResolver(engineDescriptor, logger);
-		resolver.populateEngineDescriptorFrom(singleton(request));
+		TestClassRequestResolver resolver = new TestClassRequestResolver(logger);
+		resolver.populateEngineDescriptorFrom(singleton(request), engineDescriptor);
 
 		return logger.getLogRecords();
 	}

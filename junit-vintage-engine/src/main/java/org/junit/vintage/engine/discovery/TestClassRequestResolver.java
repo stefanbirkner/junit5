@@ -36,43 +36,43 @@ import org.junit.vintage.engine.descriptor.VintageTestDescriptor;
  */
 class TestClassRequestResolver {
 
-	private final TestDescriptor engineDescriptor;
 	private final Logger logger;
 
 	private final UniqueIdReader uniqueIdReader;
 	private final UniqueIdStringifier uniqueIdStringifier = new UniqueIdStringifier();
 
-	TestClassRequestResolver(TestDescriptor engineDescriptor, Logger logger) {
-		this.engineDescriptor = engineDescriptor;
+	TestClassRequestResolver(Logger logger) {
 		this.logger = logger;
 		this.uniqueIdReader = new UniqueIdReader(logger);
 	}
 
-	void populateEngineDescriptorFrom(Set<TestClassRequest> requests) {
+	void populateEngineDescriptorFrom(Set<TestClassRequest> requests, TestDescriptor engineDescriptor) {
 		RunnerBuilder runnerBuilder = new DefensiveAllDefaultPossibilitiesBuilder();
 		for (TestClassRequest request : requests) {
 			Class<?> testClass = request.getTestClass();
 			Runner runner = runnerBuilder.safeRunnerForClass(testClass);
 			if (runner != null) {
-				addRunnerTestDescriptor(request, testClass, runner);
+				addRunnerTestDescriptor(request, testClass, runner, engineDescriptor);
 			}
 		}
 	}
 
-	private void addRunnerTestDescriptor(TestClassRequest request, Class<?> testClass, Runner runner) {
+	private void addRunnerTestDescriptor(TestClassRequest request, Class<?> testClass, Runner runner,
+			TestDescriptor engineDescriptor) {
 		RunnerTestDescriptor runnerTestDescriptor = determineRunnerTestDescriptor(testClass, runner,
-			request.getFilters());
+			request.getFilters(), engineDescriptor);
 		engineDescriptor.addChild(runnerTestDescriptor);
 	}
 
 	private RunnerTestDescriptor determineRunnerTestDescriptor(Class<?> testClass, Runner runner,
-			List<RunnerTestDescriptorAwareFilter> filters) {
-		RunnerTestDescriptor runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, runner);
+			List<RunnerTestDescriptorAwareFilter> filters, TestDescriptor engineDescriptor) {
+		RunnerTestDescriptor runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, runner,
+			engineDescriptor);
 		if (!filters.isEmpty()) {
 			if (runner instanceof Filterable) {
 				Filter filter = createOrFilter(filters, runnerTestDescriptor);
 				Runner filteredRunner = runnerTestDescriptor.toRequest().filterWith(filter).getRunner();
-				runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, filteredRunner);
+				runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, filteredRunner, engineDescriptor);
 			}
 			else {
 				logger.warning(() -> "Runner " + runner.getClass().getName() //
@@ -89,7 +89,8 @@ class TestClassRequestResolver {
 		return new OrFilter(filters);
 	}
 
-	private RunnerTestDescriptor createCompleteRunnerTestDescriptor(Class<?> testClass, Runner runner) {
+	private RunnerTestDescriptor createCompleteRunnerTestDescriptor(Class<?> testClass, Runner runner,
+			TestDescriptor engineDescriptor) {
 		RunnerTestDescriptor runnerTestDescriptor = new RunnerTestDescriptor(engineDescriptor, testClass, runner);
 		addChildrenRecursively(runnerTestDescriptor);
 		return runnerTestDescriptor;
