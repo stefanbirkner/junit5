@@ -72,17 +72,18 @@ public class VintageTestEngine implements TestEngine {
 		EngineExecutionListener engineExecutionListener = request.getEngineExecutionListener();
 		TestDescriptor engineTestDescriptor = request.getRootTestDescriptor();
 		engineExecutionListener.executionStarted(engineTestDescriptor);
-		RunnerExecutor runnerExecutor = new RunnerExecutor(engineExecutionListener, LOG);
-		executeAllChildren(runnerExecutor, engineTestDescriptor);
+		RunnerExecutor runnerExecutor = new RunnerExecutor(LOG);
+		executeAllChildren(runnerExecutor, engineTestDescriptor, engineExecutionListener);
 		engineExecutionListener.executionFinished(engineTestDescriptor, successful());
 	}
 
-	private void executeAllChildren(RunnerExecutor runnerExecutor, TestDescriptor engineTestDescriptor) {
+	private void executeAllChildren(RunnerExecutor runnerExecutor, TestDescriptor engineTestDescriptor,
+			EngineExecutionListener engineExecutionListener) {
 		// @formatter:off
 		engineTestDescriptor.getChildren()
 			.stream()
 			.map(RunnerTestDescriptor.class::cast)
-			.forEach(runnerExecutor::execute);
+			.forEach(descriptor -> runnerExecutor.execute(descriptor, engineExecutionListener));
 		// @formatter:on
 	}
 }

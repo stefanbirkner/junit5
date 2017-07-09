@@ -27,15 +27,13 @@ import org.junit.vintage.engine.descriptor.RunnerTestDescriptor;
 @API(Internal)
 public class RunnerExecutor {
 
-	private final EngineExecutionListener engineExecutionListener;
 	private final Logger logger;
 
-	public RunnerExecutor(EngineExecutionListener engineExecutionListener, Logger logger) {
-		this.engineExecutionListener = engineExecutionListener;
+	public RunnerExecutor(Logger logger) {
 		this.logger = logger;
 	}
 
-	public void execute(RunnerTestDescriptor runnerTestDescriptor) {
+	public void execute(RunnerTestDescriptor runnerTestDescriptor, EngineExecutionListener engineExecutionListener) {
 		TestRun testRun = new TestRun(runnerTestDescriptor, logger);
 		JUnitCore core = new JUnitCore();
 		core.addListener(new RunListenerAdapter(testRun, engineExecutionListener));
@@ -43,12 +41,12 @@ public class RunnerExecutor {
 			core.run(runnerTestDescriptor.toRequest());
 		}
 		catch (Throwable t) {
-			reportUnexpectedFailure(testRun, runnerTestDescriptor, failed(t));
+			reportUnexpectedFailure(testRun, runnerTestDescriptor, failed(t), engineExecutionListener);
 		}
 	}
 
 	private void reportUnexpectedFailure(TestRun testRun, RunnerTestDescriptor runnerTestDescriptor,
-			TestExecutionResult result) {
+			TestExecutionResult result, EngineExecutionListener engineExecutionListener) {
 		if (testRun.isNotStarted(runnerTestDescriptor)) {
 			engineExecutionListener.executionStarted(runnerTestDescriptor);
 		}
