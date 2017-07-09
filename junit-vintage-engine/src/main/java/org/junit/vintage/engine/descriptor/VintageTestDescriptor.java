@@ -10,7 +10,6 @@
 
 package org.junit.vintage.engine.descriptor;
 
-import static java.util.Arrays.stream;
 import static java.util.function.Predicate.isEqual;
 import static org.junit.platform.commons.meta.API.Usage.Internal;
 import static org.junit.platform.commons.util.CollectionUtils.getOnlyElement;
@@ -21,8 +20,8 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.experimental.categories.Category;
 import org.junit.platform.commons.meta.API;
@@ -78,25 +77,29 @@ public class VintageTestDescriptor extends AbstractTestDescriptor {
 
 	@Override
 	public Set<TestTag> getTags() {
-		Set<TestTag> result = new LinkedHashSet<>();
-		getParent().ifPresent(parent -> result.addAll(parent.getTags()));
-		// @formatter:off
-		getDeclaredCategories().ifPresent(categoryClasses ->
-			stream(categoryClasses)
-				.map(ReflectionUtils::getAllAssignmentCompatibleClasses)
-				.flatMap(Collection::stream)
-				.distinct()
-				.map(Class::getName)
-				.map(TestTag::create)
-				.forEachOrdered(result::add)
-		);
-		// @formatter:on
-		return result;
+		Set<TestTag> tags = new LinkedHashSet<>();
+		addTagsFromParent(tags);
+		addCategoriesAsTags(tags);
+		return tags;
 	}
 
-	private Optional<Class<?>[]> getDeclaredCategories() {
+	private void addTagsFromParent(Set<TestTag> tags) {
+		getParent().map(TestDescriptor::getTags).ifPresent(tags::addAll);
+	}
+
+	private void addCategoriesAsTags(Set<TestTag> tags) {
 		Category annotation = description.getAnnotation(Category.class);
-		return Optional.ofNullable(annotation).map(Category::value);
+		if (annotation != null) {
+			// @formatter:off
+			Stream.of(annotation.value())
+					.map(ReflectionUtils::getAllAssignmentCompatibleClasses)
+					.flatMap(Collection::stream)
+					.distinct()
+					.map(Class::getName)
+					.map(TestTag::create)
+					.forEachOrdered(tags::add);
+			// @formatter:on
+		}
 	}
 
 	private static TestSource toTestSource(Description description) {
