@@ -23,6 +23,7 @@ import java.util.function.IntFunction;
 import java.util.logging.Logger;
 
 import org.junit.platform.engine.TestDescriptor;
+import org.junit.platform.engine.UniqueId;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.manipulation.Filter;
@@ -60,19 +61,18 @@ class TestClassRequestResolver {
 	private void addRunnerTestDescriptor(TestClassRequest request, Class<?> testClass, Runner runner,
 			TestDescriptor engineDescriptor) {
 		RunnerTestDescriptor runnerTestDescriptor = determineRunnerTestDescriptor(testClass, runner,
-			request.getFilters(), engineDescriptor);
+			request.getFilters(), engineDescriptor.getUniqueId());
 		engineDescriptor.addChild(runnerTestDescriptor);
 	}
 
 	private RunnerTestDescriptor determineRunnerTestDescriptor(Class<?> testClass, Runner runner,
-			List<RunnerTestDescriptorAwareFilter> filters, TestDescriptor engineDescriptor) {
-		RunnerTestDescriptor runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, runner,
-			engineDescriptor);
+			List<RunnerTestDescriptorAwareFilter> filters, UniqueId engineId) {
+		RunnerTestDescriptor runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, runner, engineId);
 		if (!filters.isEmpty()) {
 			if (runner instanceof Filterable) {
 				Filter filter = createOrFilter(filters, runnerTestDescriptor);
 				Runner filteredRunner = runnerTestDescriptor.toRequest().filterWith(filter).getRunner();
-				runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, filteredRunner, engineDescriptor);
+				runnerTestDescriptor = createCompleteRunnerTestDescriptor(testClass, filteredRunner, engineId);
 			}
 			else {
 				logger.warning(() -> "Runner " + runner.getClass().getName() //
@@ -90,8 +90,8 @@ class TestClassRequestResolver {
 	}
 
 	private RunnerTestDescriptor createCompleteRunnerTestDescriptor(Class<?> testClass, Runner runner,
-			TestDescriptor engineDescriptor) {
-		RunnerTestDescriptor runnerTestDescriptor = new RunnerTestDescriptor(engineDescriptor, testClass, runner);
+			UniqueId engineId) {
+		RunnerTestDescriptor runnerTestDescriptor = new RunnerTestDescriptor(engineId, testClass, runner);
 		addChildrenRecursively(runnerTestDescriptor);
 		return runnerTestDescriptor;
 	}
@@ -108,8 +108,8 @@ class TestClassRequestResolver {
 			for (int index = 0; index < childrenWithSameUniqueId.size(); index++) {
 				String reallyUniqueId = uniqueIdGenerator.apply(index);
 				Description description = childrenWithSameUniqueId.get(index);
-				VintageTestDescriptor child = new VintageTestDescriptor(parent, VintageTestDescriptor.SEGMENT_TYPE_TEST,
-					reallyUniqueId, description);
+				UniqueId id = parent.getUniqueId().append(VintageTestDescriptor.SEGMENT_TYPE_TEST, reallyUniqueId);
+				VintageTestDescriptor child = new VintageTestDescriptor(id, description);
 				parent.addChild(child);
 				addChildrenRecursively(child);
 			}
