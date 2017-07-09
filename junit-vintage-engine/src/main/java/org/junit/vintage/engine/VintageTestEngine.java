@@ -11,7 +11,6 @@
 package org.junit.vintage.engine;
 
 import static org.junit.platform.commons.meta.API.Usage.Experimental;
-import static org.junit.platform.engine.TestExecutionResult.successful;
 import static org.junit.vintage.engine.descriptor.VintageTestDescriptor.ENGINE_ID;
 
 import java.util.Optional;
@@ -19,15 +18,13 @@ import java.util.logging.Logger;
 
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.engine.EngineDiscoveryRequest;
-import org.junit.platform.engine.EngineExecutionListener;
 import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestEngine;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.junit.vintage.engine.descriptor.RunnerTestDescriptor;
 import org.junit.vintage.engine.discovery.JUnit4DiscoveryRequestResolver;
-import org.junit.vintage.engine.execution.RunnerExecutor;
+import org.junit.vintage.engine.execution.VintageExecutor;
 
 /**
  * The JUnit Vintage {@link TestEngine}.
@@ -69,21 +66,6 @@ public class VintageTestEngine implements TestEngine {
 
 	@Override
 	public void execute(ExecutionRequest request) {
-		EngineExecutionListener engineExecutionListener = request.getEngineExecutionListener();
-		TestDescriptor engineTestDescriptor = request.getRootTestDescriptor();
-		engineExecutionListener.executionStarted(engineTestDescriptor);
-		RunnerExecutor runnerExecutor = new RunnerExecutor(LOG);
-		executeAllChildren(runnerExecutor, engineTestDescriptor, engineExecutionListener);
-		engineExecutionListener.executionFinished(engineTestDescriptor, successful());
-	}
-
-	private void executeAllChildren(RunnerExecutor runnerExecutor, TestDescriptor engineTestDescriptor,
-			EngineExecutionListener engineExecutionListener) {
-		// @formatter:off
-		engineTestDescriptor.getChildren()
-			.stream()
-			.map(RunnerTestDescriptor.class::cast)
-			.forEach(descriptor -> runnerExecutor.execute(descriptor, engineExecutionListener));
-		// @formatter:on
+		new VintageExecutor(LOG).execute(request);
 	}
 }
