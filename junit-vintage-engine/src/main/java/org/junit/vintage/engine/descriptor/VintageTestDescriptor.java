@@ -55,12 +55,12 @@ public class VintageTestDescriptor extends AbstractTestDescriptor {
 	}
 
 	VintageTestDescriptor(TestDescriptor parent, String segmentType, String segmentValue, Description description,
-			String displayName, Optional<? extends TestSource> source) {
+			String displayName, TestSource source) {
 
 		super(parent.getUniqueId().append(segmentType, segmentValue), displayName);
 
 		this.description = description;
-		source.ifPresent(this::setSource);
+		setSource(source);
 	}
 
 	private static String generateDisplayName(Description description) {
@@ -99,19 +99,19 @@ public class VintageTestDescriptor extends AbstractTestDescriptor {
 		return Optional.ofNullable(annotation).map(Category::value);
 	}
 
-	private static Optional<TestSource> toTestSource(Description description) {
+	private static TestSource toTestSource(Description description) {
 		Class<?> testClass = description.getTestClass();
 		if (testClass != null) {
 			String methodName = description.getMethodName();
 			if (methodName != null) {
 				MethodSource methodSource = toMethodSource(testClass, methodName);
 				if (methodSource != null) {
-					return Optional.of(methodSource);
+					return methodSource;
 				}
 			}
-			return Optional.of(new ClassSource(testClass));
+			return new ClassSource(testClass);
 		}
-		return Optional.empty();
+		return null;
 	}
 
 	private static MethodSource toMethodSource(Class<?> testClass, String methodName) {
