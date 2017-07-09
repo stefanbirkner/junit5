@@ -26,23 +26,31 @@ import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.Filter;
 import org.junit.platform.engine.TestDescriptor;
+import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.discovery.ClassNameFilter;
+import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 import org.junit.platform.engine.support.filter.ExclusionReasonConsumingFilter;
 
 /**
  * @since 4.12
  */
 @API(Internal)
-public class JUnit4DiscoveryRequestResolver {
+public class VintageDiscoverer {
 
 	private static final IsPotentialJUnit4TestClass isPotentialJUnit4TestClass = new IsPotentialJUnit4TestClass();
 	private final Logger logger;
 
-	public JUnit4DiscoveryRequestResolver(Logger logger) {
+	public VintageDiscoverer(Logger logger) {
 		this.logger = logger;
 	}
 
-	public void resolve(EngineDiscoveryRequest discoveryRequest, TestDescriptor engineDescriptor) {
+	public TestDescriptor discover(EngineDiscoveryRequest discoveryRequest, UniqueId uniqueId) {
+		EngineDescriptor engineDescriptor = new EngineDescriptor(uniqueId, "JUnit Vintage");
+		resolve(discoveryRequest, engineDescriptor);
+		return engineDescriptor;
+	}
+
+	private void resolve(EngineDiscoveryRequest discoveryRequest, TestDescriptor engineDescriptor) {
 		TestClassCollector collector = collectTestClasses(discoveryRequest);
 		Set<TestClassRequest> requests = filterAndConvertToTestClassRequests(discoveryRequest, collector);
 		populateEngineDescriptor(requests, engineDescriptor);
