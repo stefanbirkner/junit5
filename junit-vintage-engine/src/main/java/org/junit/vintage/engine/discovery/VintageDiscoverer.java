@@ -17,9 +17,10 @@ import static org.junit.platform.engine.Filter.composeFilters;
 import static org.junit.platform.engine.support.filter.ClasspathScanningSupport.buildClassNamePredicate;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.engine.DiscoverySelector;
@@ -39,21 +40,32 @@ public class VintageDiscoverer {
 
 	private static final IsPotentialJUnit4TestClass isPotentialJUnit4TestClass = new IsPotentialJUnit4TestClass();
 	private final Logger logger;
+	private final TestClassRequestResolver testClassRequestResolver;
 
 	public VintageDiscoverer(Logger logger) {
 		this.logger = logger;
+		testClassRequestResolver = new TestClassRequestResolver(logger);
 	}
 
-	public TestDescriptor discover(EngineDiscoveryRequest discoveryRequest, UniqueId uniqueId) {
-		EngineDescriptor engineDescriptor = new EngineDescriptor(uniqueId, "JUnit Vintage");
-		resolve(discoveryRequest, engineDescriptor);
+	public TestDescriptor discover(EngineDiscoveryRequest discoveryRequest, UniqueId engineId) {
+		EngineDescriptor engineDescriptor = new EngineDescriptor(engineId, "JUnit Vintage");
+		// @formatter:off
+		createTestClassRequests(discoveryRequest)
+				.map(testClassRequest -> testClassRequestResolver.createRunnerTestDescriptor(testClassRequest, engineId))
+				.filter(Objects::nonNull)
+				.forEach(engineDescriptor::addChild);
+		// @formatter:on
 		return engineDescriptor;
 	}
 
-	private void resolve(EngineDiscoveryRequest discoveryRequest, TestDescriptor engineDescriptor) {
+	private Stream<TestClassRequest> createTestClassRequests(EngineDiscoveryRequest discoveryRequest) {
 		TestClassCollector collector = collectTestClasses(discoveryRequest);
-		Set<TestClassRequest> requests = filterAndConvertToTestClassRequests(discoveryRequest, collector);
-		populateEngineDescriptor(requests, engineDescriptor);
+		List<ClassNameFilter> allClassNameFilters = discoveryRequest.getDiscoveryFiltersByType(ClassNameFilter.class);
+		Filter<Class<?>> adaptedFilter = adaptFilter(composeFilters(allClassNameFilters), Class::getName);
+		Filter<Class<?>> classFilter = new ExclusionReasonConsumingFilter<>(adaptedFilter,
+			(testClass, reason) -> logger.fine(() -> String.format("Class %s was excluded by a class filter: %s",
+				testClass.getName(), reason.orElse("<unknown reason>"))));
+		return collector.toRequests(classFilter.toPredicate().and(loggingPotentialJUnit4TestClassPredicate()));
 	}
 
 	private TestClassCollector collectTestClasses(EngineDiscoveryRequest discoveryRequest) {
@@ -81,16 +93,6 @@ public class VintageDiscoverer {
 			selector -> selectorResolver.resolve(selector, collector));
 	}
 
-	private Set<TestClassRequest> filterAndConvertToTestClassRequests(EngineDiscoveryRequest discoveryRequest,
-			TestClassCollector collector) {
-		List<ClassNameFilter> allClassNameFilters = discoveryRequest.getDiscoveryFiltersByType(ClassNameFilter.class);
-		Filter<Class<?>> adaptedFilter = adaptFilter(composeFilters(allClassNameFilters), Class::getName);
-		Filter<Class<?>> classFilter = new ExclusionReasonConsumingFilter<>(adaptedFilter,
-			(testClass, reason) -> logger.fine(() -> String.format("Class %s was excluded by a class filter: %s",
-				testClass.getName(), reason.orElse("<unknown reason>"))));
-		return collector.toRequests(classFilter.toPredicate().and(loggingPotentialJUnit4TestClassPredicate()));
-	}
-
 	private Predicate<Class<?>> loggingPotentialJUnit4TestClassPredicate() {
 		return testClass -> {
 			boolean isPotentialTestClass = isPotentialJUnit4TestClass.test(testClass);
@@ -101,9 +103,5 @@ public class VintageDiscoverer {
 
 			return isPotentialTestClass;
 		};
-	}
-
-	private void populateEngineDescriptor(Set<TestClassRequest> requests, TestDescriptor engineDescriptor) {
-		new TestClassRequestResolver(logger).populateEngineDescriptorFrom(requests, engineDescriptor);
 	}
 }

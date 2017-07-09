@@ -17,9 +17,9 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectUniqu
 import static org.junit.vintage.engine.VintageUniqueIdBuilder.engineId;
 import static org.junit.vintage.engine.descriptor.VintageTestDescriptor.ENGINE_ID;
 
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.engine.UniqueId;
@@ -88,7 +88,7 @@ class UniqueIdSelectorResolverTests {
 	}
 
 	private void assertNoRequests() {
-		Set<TestClassRequest> requests = collector.toRequests(c -> true);
+		Stream<TestClassRequest> requests = collector.toRequests(c -> true);
 		assertThat(requests).isEmpty();
 	}
 

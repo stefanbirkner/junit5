@@ -18,11 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.function.IntFunction;
 import java.util.logging.Logger;
 
-import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
@@ -37,6 +35,7 @@ import org.junit.vintage.engine.descriptor.VintageTestDescriptor;
  */
 class TestClassRequestResolver {
 
+	private static final RunnerBuilder RUNNER_BUILDER = new DefensiveAllDefaultPossibilitiesBuilder();
 	private final Logger logger;
 
 	private final UniqueIdReader uniqueIdReader;
@@ -47,22 +46,15 @@ class TestClassRequestResolver {
 		this.uniqueIdReader = new UniqueIdReader(logger);
 	}
 
-	void populateEngineDescriptorFrom(Set<TestClassRequest> requests, TestDescriptor engineDescriptor) {
-		RunnerBuilder runnerBuilder = new DefensiveAllDefaultPossibilitiesBuilder();
-		for (TestClassRequest request : requests) {
-			Class<?> testClass = request.getTestClass();
-			Runner runner = runnerBuilder.safeRunnerForClass(testClass);
-			if (runner != null) {
-				addRunnerTestDescriptor(request, testClass, runner, engineDescriptor);
-			}
+	RunnerTestDescriptor createRunnerTestDescriptor(TestClassRequest request, UniqueId engineId) {
+		Class<?> testClass = request.getTestClass();
+		Runner runner = RUNNER_BUILDER.safeRunnerForClass(testClass);
+		if (runner == null) {
+			return null;
 		}
-	}
-
-	private void addRunnerTestDescriptor(TestClassRequest request, Class<?> testClass, Runner runner,
-			TestDescriptor engineDescriptor) {
-		RunnerTestDescriptor runnerTestDescriptor = determineRunnerTestDescriptor(testClass, runner,
-			request.getFilters(), engineDescriptor.getUniqueId());
-		engineDescriptor.addChild(runnerTestDescriptor);
+		else {
+			return determineRunnerTestDescriptor(testClass, runner, request.getFilters(), engineId);
+		}
 	}
 
 	private RunnerTestDescriptor determineRunnerTestDescriptor(Class<?> testClass, Runner runner,
