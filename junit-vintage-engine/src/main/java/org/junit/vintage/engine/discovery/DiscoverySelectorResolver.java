@@ -17,7 +17,5 @@ import org.junit.platform.engine.EngineDiscoveryRequest;
  */
 interface DiscoverySelectorResolver {
 
-	IsPotentialJUnit4TestClass classTester = new IsPotentialJUnit4TestClass();
-
 	void resolve(EngineDiscoveryRequest request, TestClassCollector collector);
 }

@@ -13,6 +13,7 @@ package org.junit.vintage.engine.discovery;
 import static org.junit.platform.commons.util.ReflectionUtils.findAllClassesInClasspathRoot;
 
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
@@ -35,7 +36,7 @@ class ClasspathRootSelectorResolver implements DiscoverySelectorResolver {
 		request.getSelectorsByType(ClasspathRootSelector.class)
 			.stream()
 			.map(ClasspathRootSelector::getClasspathRoot)
-			.map(root -> findAllClassesInClasspathRoot(root, classTester, classNamePredicate))
+			.map(root -> findAllClassesInClasspathRoot(root, Function::identity, classNamePredicate))
 			.flatMap(Collection::stream)
 			.forEach(collector::addCompletely);
 		// @formatter:on

@@ -13,6 +13,7 @@ package org.junit.vintage.engine.discovery;
 import static org.junit.platform.commons.util.ReflectionUtils.findAllClassesInPackage;
 
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
@@ -35,7 +36,7 @@ class PackageNameSelectorResolver implements DiscoverySelectorResolver {
 		request.getSelectorsByType(PackageSelector.class)
 			.stream()
 			.map(PackageSelector::getPackageName)
-			.map(packageName -> findAllClassesInPackage(packageName, classTester, classNamePredicate))
+			.map(packageName -> findAllClassesInPackage(packageName, Function::identity, classNamePredicate))
 			.flatMap(Collection::stream)
 			.forEach(collector::addCompletely);
 		// @formatter:on
