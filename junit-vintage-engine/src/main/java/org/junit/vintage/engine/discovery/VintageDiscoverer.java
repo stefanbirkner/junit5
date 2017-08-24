@@ -16,8 +16,10 @@ import static org.junit.platform.engine.Filter.adaptFilter;
 import static org.junit.platform.engine.Filter.composeFilters;
 import static org.junit.platform.engine.support.filter.ClasspathScanningSupport.buildClassNamePredicate;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -59,19 +61,16 @@ public class VintageDiscoverer {
 
 	private TestClassCollector collectTestClasses(EngineDiscoveryRequest discoveryRequest) {
 		Predicate<Class<?>> classFilter = createTestClassPredicate(discoveryRequest);
-		TestClassCollector collector = new TestClassCollector();
-		for (DiscoverySelectorResolver selectorResolver : getAllDiscoverySelectorResolvers(discoveryRequest)) {
+		Set<Class<?>> unrestrictedTestClasses = collectUnrestrictedTestClasses(discoveryRequest, classFilter);
+		TestClassCollector collector = new TestClassCollector(unrestrictedTestClasses);
+		for (DiscoverySelectorResolver selectorResolver : getAllDiscoverySelectorResolvers()) {
 			selectorResolver.resolve(discoveryRequest, classFilter, collector);
 		}
 		return collector;
 	}
 
-	private List<DiscoverySelectorResolver> getAllDiscoverySelectorResolvers(EngineDiscoveryRequest request) {
-		Predicate<String> classNamePredicate = buildClassNamePredicate(request);
+	private List<DiscoverySelectorResolver> getAllDiscoverySelectorResolvers() {
 		return asList( //
-			new ClasspathRootSelectorResolver(classNamePredicate), //
-			new PackageNameSelectorResolver(classNamePredicate), //
-			new ClassSelectorResolver(), //
 			new MethodSelectorResolver(), //
 			new UniqueIdSelectorResolver(logger)//
 		);
@@ -84,5 +83,17 @@ public class VintageDiscoverer {
 			(testClass, reason) -> logger.fine(() -> String.format("Class %s was excluded by a class filter: %s",
 				testClass.getName(), reason.orElse("<unknown reason>"))));
 		return classFilter.toPredicate().and(isPotentialJUnit4TestClass);
+	}
+
+	private Set<Class<?>> collectUnrestrictedTestClasses(EngineDiscoveryRequest discoveryRequest,
+			Predicate<Class<?>> classFilter) {
+		Predicate<String> classNamePredicate = buildClassNamePredicate(discoveryRequest);
+		Set<Class<?>> unrestrictedTestClasses = new HashSet<>();
+		new ClasspathRootSelectorResolver(classNamePredicate).resolve(discoveryRequest, classFilter).forEach(
+			unrestrictedTestClasses::add);
+		new PackageNameSelectorResolver(classNamePredicate).resolve(discoveryRequest, classFilter).forEach(
+			unrestrictedTestClasses::add);
+		new ClassSelectorResolver().resolve(discoveryRequest, classFilter).forEach(unrestrictedTestClasses::add);
+		return unrestrictedTestClasses;
 	}
 }

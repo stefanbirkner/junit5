@@ -14,6 +14,7 @@ import static org.junit.platform.commons.util.ReflectionUtils.findAllClassesInCl
 
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.discovery.ClasspathRootSelector;
@@ -21,7 +22,7 @@ import org.junit.platform.engine.discovery.ClasspathRootSelector;
 /**
  * @since 4.12
  */
-class ClasspathRootSelectorResolver implements DiscoverySelectorResolver {
+class ClasspathRootSelectorResolver {
 
 	private final Predicate<String> classNamePredicate;
 
@@ -29,15 +30,13 @@ class ClasspathRootSelectorResolver implements DiscoverySelectorResolver {
 		this.classNamePredicate = classNamePredicate;
 	}
 
-	@Override
-	public void resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter, TestClassCollector collector) {
+	public Stream<Class<?>> resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter) {
 		// @formatter:off
-		request.getSelectorsByType(ClasspathRootSelector.class)
+		return request.getSelectorsByType(ClasspathRootSelector.class)
 			.stream()
 			.map(ClasspathRootSelector::getClasspathRoot)
 			.map(root -> findAllClassesInClasspathRoot(root, classFilter, classNamePredicate))
-			.flatMap(Collection::stream)
-			.forEach(collector::addCompletely);
+			.flatMap(Collection::stream);
 		// @formatter:on
 	}
 

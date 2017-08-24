@@ -11,6 +11,7 @@
 package org.junit.vintage.engine.discovery;
 
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.discovery.ClassSelector;
@@ -18,16 +19,14 @@ import org.junit.platform.engine.discovery.ClassSelector;
 /**
  * @since 4.12
  */
-class ClassSelectorResolver implements DiscoverySelectorResolver {
+class ClassSelectorResolver {
 
-	@Override
-	public void resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter, TestClassCollector collector) {
+	public Stream<Class<?>> resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter) {
 		// @formatter:off
-		request.getSelectorsByType(ClassSelector.class)
+		return request.getSelectorsByType(ClassSelector.class)
 			.stream()
 			.map(ClassSelector::getJavaClass)
-			.filter(classFilter)
-			.forEach(collector::addCompletely);
+			.filter(classFilter);
 		// @formatter:on
 	}
 
