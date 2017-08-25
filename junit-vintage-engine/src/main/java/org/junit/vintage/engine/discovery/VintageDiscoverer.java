@@ -10,7 +10,6 @@
 
 package org.junit.vintage.engine.discovery;
 
-import static java.util.Arrays.asList;
 import static org.junit.platform.commons.meta.API.Usage.Internal;
 import static org.junit.platform.engine.Filter.adaptFilter;
 import static org.junit.platform.engine.Filter.composeFilters;
@@ -67,13 +66,6 @@ public class VintageDiscoverer {
 		return collector;
 	}
 
-	private List<DiscoverySelectorResolver> getAllDiscoverySelectorResolvers() {
-		return asList( //
-			new MethodSelectorResolver(), //
-			new UniqueIdSelectorResolver(logger)//
-		);
-	}
-
 	private Predicate<Class<?>> createTestClassPredicate(EngineDiscoveryRequest discoveryRequest) {
 		List<ClassNameFilter> allClassNameFilters = discoveryRequest.getFiltersByType(ClassNameFilter.class);
 		Filter<Class<?>> adaptedFilter = adaptFilter(composeFilters(allClassNameFilters), Class::getName);
@@ -96,9 +88,8 @@ public class VintageDiscoverer {
 	}
 
 	private void collectFilteredTestClasses(EngineDiscoveryRequest discoveryRequest, Predicate<Class<?>> classFilter,
-											TestClassCollector collector) {
-		for (DiscoverySelectorResolver selectorResolver : getAllDiscoverySelectorResolvers()) {
-			selectorResolver.resolve(discoveryRequest, classFilter, collector);
-		}
+			TestClassCollector collector) {
+		new MethodSelectorResolver().resolve(discoveryRequest, classFilter, collector);
+		new UniqueIdSelectorResolver(logger).resolve(discoveryRequest, classFilter, collector);
 	}
 }

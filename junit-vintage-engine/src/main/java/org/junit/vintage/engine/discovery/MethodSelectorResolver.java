@@ -23,9 +23,8 @@ import org.junit.runner.manipulation.Filter;
 /**
  * @since 4.12
  */
-class MethodSelectorResolver implements DiscoverySelectorResolver {
+class MethodSelectorResolver {
 
-	@Override
 	public void resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter, TestClassCollector collector) {
 		request.getSelectorsByType(MethodSelector.class).forEach(selector -> resolve(selector, classFilter, collector));
 	}

@@ -27,7 +27,7 @@ import org.junit.platform.engine.discovery.UniqueIdSelector;
 /**
  * @since 4.12
  */
-class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
+class UniqueIdSelectorResolver {
 
 	private final Logger logger;
 
@@ -35,7 +35,6 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 		this.logger = logger;
 	}
 
-	@Override
 	public void resolve(EngineDiscoveryRequest request, Predicate<Class<?>> classFilter, TestClassCollector collector) {
 		// @formatter:off
 		request.getSelectorsByType(UniqueIdSelector.class)
