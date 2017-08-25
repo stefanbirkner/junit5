@@ -62,7 +62,9 @@ public class VintageDiscoverer {
 		Predicate<Class<?>> classFilter = createTestClassPredicate(discoveryRequest);
 		Set<Class<?>> unrestrictedTestClasses = collectUnrestrictedTestClasses(discoveryRequest, classFilter);
 		TestClassCollector collector = new TestClassCollector(unrestrictedTestClasses);
-		collectFilteredTestClasses(discoveryRequest, classFilter, collector);
+		Predicate<Class<?>> extendedClassFilter = classFilter.and(
+			testClass -> !unrestrictedTestClasses.contains(testClass));
+		collectFilteredTestClasses(discoveryRequest, extendedClassFilter, collector);
 		return collector;
 	}
 
