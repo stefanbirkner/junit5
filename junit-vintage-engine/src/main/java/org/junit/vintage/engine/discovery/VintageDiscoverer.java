@@ -63,9 +63,7 @@ public class VintageDiscoverer {
 		Predicate<Class<?>> classFilter = createTestClassPredicate(discoveryRequest);
 		Set<Class<?>> unrestrictedTestClasses = collectUnrestrictedTestClasses(discoveryRequest, classFilter);
 		TestClassCollector collector = new TestClassCollector(unrestrictedTestClasses);
-		for (DiscoverySelectorResolver selectorResolver : getAllDiscoverySelectorResolvers()) {
-			selectorResolver.resolve(discoveryRequest, classFilter, collector);
-		}
+		collectFilteredTestClasses(discoveryRequest, classFilter, collector);
 		return collector;
 	}
 
@@ -95,5 +93,12 @@ public class VintageDiscoverer {
 			unrestrictedTestClasses::add);
 		new ClassSelectorResolver().resolve(discoveryRequest, classFilter).forEach(unrestrictedTestClasses::add);
 		return unrestrictedTestClasses;
+	}
+
+	private void collectFilteredTestClasses(EngineDiscoveryRequest discoveryRequest, Predicate<Class<?>> classFilter,
+											TestClassCollector collector) {
+		for (DiscoverySelectorResolver selectorResolver : getAllDiscoverySelectorResolvers()) {
+			selectorResolver.resolve(discoveryRequest, classFilter, collector);
+		}
 	}
 }
