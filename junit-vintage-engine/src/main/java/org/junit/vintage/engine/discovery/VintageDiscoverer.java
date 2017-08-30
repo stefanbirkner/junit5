@@ -16,6 +16,8 @@ import static org.junit.platform.engine.support.filter.ClasspathScanningSupport.
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
 
 import org.apiguardian.api.API;
 import org.junit.platform.commons.util.ClassFilter;
@@ -31,14 +33,11 @@ import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 public class VintageDiscoverer {
 
 	private static final IsPotentialJUnit4TestClass isPotentialJUnit4TestClass = new IsPotentialJUnit4TestClass();
-
+	private final CompleteTestClassesResolver completeTestClassesResolver = new CompleteTestClassesResolver();
 	private final TestClassRequestResolver resolver = new TestClassRequestResolver();
 
 	private final List<DiscoverySelectorResolver> selectorResolvers = asList(
 	// @formatter:off
-			new ClasspathRootSelectorResolver(),
-			new PackageNameSelectorResolver(),
-			new ClassSelectorResolver(),
 			new MethodSelectorResolver(),
 			new UniqueIdSelectorResolver()
 	// @formatter:on
@@ -57,8 +56,10 @@ public class VintageDiscoverer {
 	}
 
 	private TestClassCollector collectTestClasses(EngineDiscoveryRequest discoveryRequest) {
-		ClassFilter classFilter = ClassFilter.of(buildClassNamePredicate(discoveryRequest), isPotentialJUnit4TestClass);
-		TestClassCollector collector = new TestClassCollector();
+		Predicate<String> namePredicate = buildClassNamePredicate(discoveryRequest);
+		ClassFilter classFilter = ClassFilter.of(namePredicate, isPotentialJUnit4TestClass);
+		Set<Class<?>> completeTestClasses = completeTestClassesResolver.resolve(discoveryRequest, namePredicate);
+		TestClassCollector collector = new TestClassCollector(completeTestClasses);
 		for (DiscoverySelectorResolver selectorResolver : selectorResolvers) {
 			selectorResolver.resolve(discoveryRequest, classFilter, collector);
 		}

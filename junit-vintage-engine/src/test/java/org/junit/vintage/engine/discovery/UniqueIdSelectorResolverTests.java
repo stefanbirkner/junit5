@@ -10,6 +10,7 @@
 
 package org.junit.vintage.engine.discovery;
 
+import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectUniqueId;
 import static org.junit.vintage.engine.VintageUniqueIdBuilder.engineId;
@@ -41,7 +42,7 @@ class UniqueIdSelectorResolverTests {
 
 	private static final ClassFilter allClassesPredicate = ClassFilter.of(clazz -> true);
 
-	private final TestClassCollector collector = new TestClassCollector();
+	private final TestClassCollector collector = new TestClassCollector(emptySet());
 
 	@Test
 	void logsWarningOnUnloadableTestClass(LogRecordListener listener) {
