@@ -48,22 +48,18 @@ class LauncherFactoryTests {
 		Set<TestIdentifier> roots = testPlan.getRoots();
 		assertThat(roots).hasSize(2);
 
-		// @formatter:off
 		List<String> ids = roots.stream()
 				.map(TestIdentifier::getUniqueId)
 				.collect(toList());
-		// @formatter:on
 
 		assertThat(ids).containsOnly("[engine:junit-vintage]", "[engine:junit-jupiter]");
 	}
 
 	private LauncherDiscoveryRequest createLauncherDiscoveryRequestForBothStandardEngineExampleClasses() {
-		// @formatter:off
 		return request()
 				.selectors(selectClass(JUnit4Example.class))
 				.selectors(selectClass(JUnit5Example.class))
 				.build();
-		// @formatter:on
 	}
 
 	public static class JUnit4Example {

@@ -47,67 +47,57 @@ class DynamicTestsDemo {
 	@TestFactory
 	Collection<DynamicTest> dynamicTestsFromCollection() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		return Arrays.asList(
 			dynamicTest("1st dynamic test", () -> assertTrue(true)),
 			dynamicTest("2nd dynamic test", () -> assertEquals(4, 2 * 2))
 		);
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 
 	@TestFactory
 	Iterable<DynamicTest> dynamicTestsFromIterable() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		return Arrays.asList(
 			dynamicTest("3rd dynamic test", () -> assertTrue(true)),
 			dynamicTest("4th dynamic test", () -> assertEquals(4, 2 * 2))
 		);
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 
 	@TestFactory
 	Iterator<DynamicTest> dynamicTestsFromIterator() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		return Arrays.asList(
 			dynamicTest("5th dynamic test", () -> assertTrue(true)),
 			dynamicTest("6th dynamic test", () -> assertEquals(4, 2 * 2))
 		).iterator();
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 
 	@TestFactory
 	Stream<DynamicTest> dynamicTestsFromStream() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		return Stream.of("A", "B", "C")
 			.map(str -> dynamicTest("test" + str, () -> { /* ... */ }));
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 
 	@TestFactory
 	Stream<DynamicTest> dynamicTestsFromIntStream() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		// Generates tests for the first 10 even integers.
 		return IntStream.iterate(0, n -> n + 2).limit(10)
 			.mapToObj(n -> dynamicTest("test" + n, () -> assertTrue(n % 2 == 0)));
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 
@@ -152,7 +142,6 @@ class DynamicTestsDemo {
 	@TestFactory
 	Stream<DynamicNode> dynamicTestsWithContainers() {
 		// end::user_guide[]
-		// @formatter:off
 		// tag::user_guide[]
 		return Stream.of("A", "B", "C")
 			.map(input -> dynamicContainer("Container " + input, Stream.of(
@@ -163,7 +152,6 @@ class DynamicTestsDemo {
 				))
 			)));
 		// end::user_guide[]
-		// @formatter:on
 		// tag::user_guide[]
 	}
 

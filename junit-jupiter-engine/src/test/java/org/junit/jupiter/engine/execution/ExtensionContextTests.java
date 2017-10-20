@@ -56,7 +56,6 @@ class ExtensionContextTests {
 
 		JupiterEngineExtensionContext engineContext = new JupiterEngineExtensionContext(null, engineTestDescriptor);
 
-		// @formatter:off
 		assertAll("engineContext",
 			() -> assertThat(engineContext.getElement()).isEmpty(),
 			() -> assertThat(engineContext.getTestClass()).isEmpty(),
@@ -69,7 +68,6 @@ class ExtensionContextTests {
 			() -> assertThat(engineContext.getParent()).isEmpty(),
 			() -> assertThat(engineContext.getRoot()).isSameAs(engineContext)
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -79,7 +77,6 @@ class ExtensionContextTests {
 
 		ClassExtensionContext outerExtensionContext = new ClassExtensionContext(null, null, outerClassDescriptor, null);
 
-		// @formatter:off
 		assertAll("outerContext",
 			() -> assertThat(outerExtensionContext.getElement()).contains(OuterClass.class),
 			() -> assertThat(outerExtensionContext.getTestClass()).contains(OuterClass.class),
@@ -91,7 +88,6 @@ class ExtensionContextTests {
 			() -> assertThat(outerExtensionContext.getDisplayName()).isEqualTo(outerClassDescriptor.getDisplayName()),
 			() -> assertThat(outerExtensionContext.getParent()).isEmpty()
 		);
-		// @formatter:on
 
 		ClassExtensionContext nestedExtensionContext = new ClassExtensionContext(outerExtensionContext, null,
 			nestedClassDescriptor, null);
@@ -138,7 +134,6 @@ class ExtensionContextTests {
 		MethodExtensionContext methodExtensionContext = new MethodExtensionContext(classExtensionContext, null,
 			methodTestDescriptor, testInstance, new ThrowableCollector());
 
-		// @formatter:off
 		assertAll("methodContext",
 			() -> assertThat(methodExtensionContext.getElement()).contains(testMethod),
 			() -> assertThat(methodExtensionContext.getTestClass()).contains(OuterClass.class),
@@ -151,7 +146,6 @@ class ExtensionContextTests {
 			() -> assertThat(methodExtensionContext.getParent()).contains(classExtensionContext),
 			() -> assertThat(methodExtensionContext.getRoot()).isSameAs(engineExtensionContext)
 		);
-		// @formatter:on
 	}
 
 	@Test

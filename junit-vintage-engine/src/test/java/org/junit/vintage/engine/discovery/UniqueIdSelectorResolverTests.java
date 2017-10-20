@@ -90,13 +90,11 @@ class UniqueIdSelectorResolverTests {
 	}
 
 	private void assertLoggedWarning(LogRecordListener listener, String expectedMessage) {
-		// @formatter:off
 		assertThat(listener.stream(UniqueIdSelectorResolver.class, Level.WARNING)
 			.map(LogRecord::getMessage)
 			.filter(m -> m.equals(expectedMessage))
 			.count()
 		).isEqualTo(1);
-		// @formatter:on
 	}
 
 	private void assertNoRequests() {

@@ -74,11 +74,9 @@ public class ExtensionRegistry {
 	public static ExtensionRegistry createRegistryWithDefaultExtensions(ConfigurationParameters configParams) {
 		ExtensionRegistry extensionRegistry = new ExtensionRegistry(null);
 
-		// @formatter:off
 		logger.trace(() -> "Registering default extensions: " + DEFAULT_EXTENSIONS.stream()
 						.map(extension -> extension.getClass().getName())
 						.collect(toList()));
-		// @formatter:on
 
 		DEFAULT_EXTENSIONS.forEach(extensionRegistry::registerDefaultExtension);
 
@@ -92,12 +90,10 @@ public class ExtensionRegistry {
 	private static void registerAutoDetectedExtensions(ExtensionRegistry extensionRegistry) {
 		Iterable<Extension> extensions = ServiceLoader.load(Extension.class, ClassLoaderUtils.getDefaultClassLoader());
 
-		// @formatter:off
 		logger.config(() -> "Registering auto-detected extensions: "
 				+ StreamSupport.stream(extensions.spliterator(), false)
 						.map(extension -> extension.getClass().getName())
 						.collect(toList()));
-		// @formatter:on
 
 		extensions.forEach(extensionRegistry::registerDefaultExtension);
 	}
@@ -156,11 +152,9 @@ public class ExtensionRegistry {
 	 * @see #getReversedExtensions(Class)
 	 */
 	private <E extends Extension> Stream<E> streamLocal(Class<E> extensionType) {
-		// @formatter:off
 		return this.registeredExtensions.stream()
 				.filter(extensionType::isInstance)
 				.map(extensionType::cast);
-		// @formatter:on
 	}
 
 	/**

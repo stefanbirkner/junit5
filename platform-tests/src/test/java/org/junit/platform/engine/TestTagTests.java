@@ -30,7 +30,6 @@ class TestTagTests {
 
 	@Test
 	void validSyntax() {
-		// @formatter:off
 		assertAll("Valid Tag Syntax",
 			() -> yep("fast"),
 			() -> yep("super_fast"),
@@ -53,7 +52,6 @@ class TestTagTests {
 			() -> nope("|"),          // boolean OR
 			() -> nope("!")           // boolean NOT
 		);
-		// @formatter:on
 	}
 
 	@Test

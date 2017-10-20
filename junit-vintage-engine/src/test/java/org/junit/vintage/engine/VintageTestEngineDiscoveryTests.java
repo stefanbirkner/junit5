@@ -218,13 +218,11 @@ class VintageTestEngineDiscoveryTests {
 		LauncherDiscoveryRequest discoveryRequest = request().selectors(selectClasspathRoots(singleton(root))).build();
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-		// @formatter:off
 		assertThat(engineDescriptor.getChildren())
 			.extracting(TestDescriptor::getDisplayName)
 			.contains(PlainJUnit4TestCaseWithSingleTestWhichFails.class.getName())
 			.contains(PlainJUnit3TestCaseWithSingleTestWhichFails.class.getName())
 			.doesNotContain(PlainOldJavaClassWithoutAnyTest.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -240,11 +238,9 @@ class VintageTestEngineDiscoveryTests {
 				selectClasspathRoots(singleton(jarFile))).build();
 			TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-			// @formatter:off
 			assertThat(engineDescriptor.getChildren())
 					.extracting(TestDescriptor::getDisplayName)
 					.containsExactly("com.example.project.JUnit4Test");
-			// @formatter:on
 		}
 		finally {
 			Thread.currentThread().setContextClassLoader(originalClassLoader);
@@ -260,13 +256,11 @@ class VintageTestEngineDiscoveryTests {
 
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-		// @formatter:off
 		assertThat(engineDescriptor.getChildren())
 			.extracting(TestDescriptor::getDisplayName)
 			.contains(PlainJUnit4TestCaseWithSingleTestWhichFails.class.getName())
 			.doesNotContain(JUnit4TestCaseWithOverloadedMethod.class.getName())
 			.doesNotContain(PlainJUnit3TestCaseWithSingleTestWhichFails.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -278,11 +272,9 @@ class VintageTestEngineDiscoveryTests {
 
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-		// @formatter:off
 		assertThat(engineDescriptor.getChildren())
 				.extracting(TestDescriptor::getDisplayName)
 				.contains(PlainJUnit4TestCaseWithSingleTestWhichFails.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -294,12 +286,10 @@ class VintageTestEngineDiscoveryTests {
 
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-		// @formatter:off
 		assertThat(engineDescriptor.getChildren())
 			.extracting(TestDescriptor::getDisplayName)
 			.contains(testClass.getName())
 			.doesNotContain(PlainJUnit3TestCaseWithSingleTestWhichFails.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -311,12 +301,10 @@ class VintageTestEngineDiscoveryTests {
 
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
-		// @formatter:off
 		assertThat(engineDescriptor.getChildren())
 			.extracting(TestDescriptor::getDisplayName)
 			.contains(testClass.getName())
 			.doesNotContain(PlainJUnit4TestCaseWithSingleTestWhichFails.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -567,12 +555,10 @@ class VintageTestEngineDiscoveryTests {
 	@Test
 	void doesNotResolveMethodOfClassNotAcceptedByClassNameFilter() throws Exception {
 		Class<?> testClass = PlainJUnit4TestCaseWithFiveTestMethods.class;
-		// @formatter:off
 		LauncherDiscoveryRequest request = request()
 				.selectors(selectMethod(testClass, testClass.getMethod("failingTest")))
 				.filters(includeClassNamePatterns("Foo"))
 				.build();
-		// @formatter:on
 
 		assertYieldsNoDescriptors(request);
 	}
@@ -580,12 +566,10 @@ class VintageTestEngineDiscoveryTests {
 	@Test
 	void doesNotResolveMethodOfClassNotAcceptedByPackageNameFilter() throws Exception {
 		Class<?> testClass = PlainJUnit4TestCaseWithFiveTestMethods.class;
-		// @formatter:off
 		LauncherDiscoveryRequest request = request()
 				.selectors(selectMethod(testClass, testClass.getMethod("failingTest")))
 				.filters(includePackageNames("com.acme"))
 				.build();
-		// @formatter:on
 
 		assertYieldsNoDescriptors(request);
 	}
@@ -593,11 +577,9 @@ class VintageTestEngineDiscoveryTests {
 	@Test
 	void resolvesClassForMethodSelectorForClassWithNonFilterableRunner() throws Exception {
 		Class<?> testClass = IgnoredJUnit4TestCase.class;
-		// @formatter:off
 		LauncherDiscoveryRequest request = request()
 				.selectors(selectMethod(testClass, testClass.getMethod("test")))
 				.build();
-		// @formatter:on
 
 		TestDescriptor engineDescriptor = discoverTests(request);
 
@@ -650,7 +632,6 @@ class VintageTestEngineDiscoveryTests {
 	}
 
 	private TestDescriptor findChildByDisplayName(TestDescriptor runnerDescriptor, String displayName) {
-		// @formatter:off
 		Set<? extends TestDescriptor> children = runnerDescriptor.getChildren();
 		return children
 				.stream()
@@ -658,7 +639,6 @@ class VintageTestEngineDiscoveryTests {
 				.findAny()
 				.orElseThrow(() ->
 					new AssertionError(format("No child with display name \"{0}\" in {1}", displayName, children)));
-		// @formatter:on
 	}
 
 	private TestDescriptor discoverTests(LauncherDiscoveryRequest discoveryRequest) {

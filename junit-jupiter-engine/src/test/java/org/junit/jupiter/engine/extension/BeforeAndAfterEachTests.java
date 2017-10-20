@@ -66,7 +66,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 
 			// OuterTestCase
@@ -92,7 +91,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 			"fooAfterEachCallback"
 
 			), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -107,7 +105,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeEachCallback",
 			"barBeforeEachCallback",
@@ -115,7 +112,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 			"barAfterEachCallback",
 			"fooAfterEachCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -130,7 +126,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 
 			// Test Interface
@@ -148,7 +143,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 			"fooAfterEachCallback"
 
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -164,7 +158,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeEachCallback",
 			"exceptionThrowingBeforeEachCallback", // throws an exception.
@@ -175,7 +168,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 			"barAfterEachCallback",
 			"fooAfterEachCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterEachCallback).containsInstanceOf(EnigmaException.class);
 	}
@@ -193,7 +185,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeEachCallback",
 			"barBeforeEachCallback",
@@ -204,7 +195,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 			"exceptionThrowingAfterEachCallback", // throws an exception.
 			"fooAfterEachCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterEachCallback).containsInstanceOf(EnigmaException.class);
 	}
@@ -228,7 +218,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		// which @BeforeEach method got executed first in order to determine
 		// the expected call sequence.
 
-		// @formatter:off
 		List<String> list1 = asList(
 			"fooBeforeEachCallback",
 				"beforeEachMethod1", // throws an exception.
@@ -245,7 +234,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 				"afterEachMethod",
 			"fooAfterEachCallback"
 		);
-		// @formatter:on
 
 		List<String> expected = beforeEachMethodCallSequence.get(0).equals("beforeEachMethod1") ? list1 : list2;
 
@@ -267,7 +255,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeEachCallback",
 				"beforeEachMethod",
@@ -275,7 +262,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 				"afterEachMethod", // throws an exception.
 			"fooAfterEachCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterEachCallback).containsInstanceOf(EnigmaException.class);
 	}
@@ -293,7 +279,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeEachCallback",
 				"beforeEachMethod",
@@ -301,7 +286,6 @@ class BeforeAndAfterEachTests extends AbstractJupiterTestEngineTests {
 				"afterEachMethod",
 			"fooAfterEachCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterEachCallback).containsInstanceOf(EnigmaException.class);
 	}

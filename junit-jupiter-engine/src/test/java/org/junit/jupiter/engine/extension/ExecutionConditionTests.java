@@ -111,12 +111,10 @@ class ExecutionConditionTests extends AbstractJupiterTestEngineTests {
 	}
 
 	private void assertExecutionConditionOverride(String deactivatePattern, int testStartedCount, int testFailedCount) {
-		// @formatter:off
 		LauncherDiscoveryRequest request = request()
 				.selectors(selectClass(TestCaseWithExecutionConditionOnClass.class))
 				.configurationParameter(DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME, deactivatePattern)
 				.build();
-		// @formatter:on
 
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
@@ -127,12 +125,10 @@ class ExecutionConditionTests extends AbstractJupiterTestEngineTests {
 	}
 
 	private void assertExecutionConditionOverride(String deactivatePattern, int started, int succeeded, int failed) {
-		// @formatter:off
 		LauncherDiscoveryRequest request = request()
 				.selectors(selectClass(TestCaseWithExecutionConditionOnMethods.class))
 				.configurationParameter(DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME, deactivatePattern)
 				.build();
-		// @formatter:on
 
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 

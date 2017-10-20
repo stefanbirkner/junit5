@@ -43,13 +43,11 @@ class XmlReportWriterTests {
 		new XmlReportWriter(reportData).writeXmlReport(getOnlyElement(testPlan.getRoots()), out);
 
 		String content = ensureValidAccordingToJenkinsSchema(out.toString());
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"Empty Engine\" tests=\"0\"",
 				"</testsuite>")
 			.doesNotContain("<testcase");
-		//@formatter:on
 	}
 
 	@Test
@@ -70,14 +68,12 @@ class XmlReportWriterTests {
 
 		String content = ensureValidAccordingToJenkinsSchema(out.toString());
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<system-out>",
 				"Report Entry #1 (timestamp: ",
 				"- myKey: myValue",
 				"</system-out>");
-		//@formatter:on
 	}
 
 	@Test
@@ -93,13 +89,11 @@ class XmlReportWriterTests {
 		new XmlReportWriter(reportData).writeXmlReport(getOnlyElement(testPlan.getRoots()), out);
 
 		String content = ensureValidAccordingToJenkinsSchema(out.toString());
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testcase name=\"skippedTest\"",
 				"<skipped/>",
 				"</testcase>");
-		//@formatter:on
 	}
 
 	@Test
@@ -126,13 +120,11 @@ class XmlReportWriterTests {
 		new XmlReportWriter(reportData).writeXmlReport(getOnlyElement(testPlan.getRoots()), out);
 
 		String content = ensureValidAccordingToJenkinsSchema(out.toString());
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testcase name=\"failedTest\" classname=\"myEngine\"",
 				"<error/>",
 				"</testcase>");
-		//@formatter:on
 	}
 
 	@Test
@@ -148,13 +140,11 @@ class XmlReportWriterTests {
 		new XmlReportWriter(reportData).writeXmlReport(getOnlyElement(testPlan.getRoots()), out);
 
 		String content = ensureValidAccordingToJenkinsSchema(out.toString());
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testcase name=\"failedTest\"",
 				"<error type=\"java.lang.NullPointerException\">",
 				"</testcase>");
-		//@formatter:on
 	}
 
 }

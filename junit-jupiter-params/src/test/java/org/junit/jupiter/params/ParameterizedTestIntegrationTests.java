@@ -141,7 +141,6 @@ class ParameterizedTestIntegrationTests {
 
 		List<String> testMethods = new ArrayList<>(LifecycleTestCase.testMethods);
 
-		// @formatter:off
 		assertThat(LifecycleTestCase.lifecycleEvents).containsExactly(
 			"beforeAll:ParameterizedTestIntegrationTests$LifecycleTestCase", //
 				"providerMethod",
@@ -163,7 +162,6 @@ class ParameterizedTestIntegrationTests {
 						testMethods.get(1) + ":[2] bar",
 					"afterEach:[2] bar",
 			"afterAll:ParameterizedTestIntegrationTests$LifecycleTestCase");
-		// @formatter:on
 	}
 
 	@Test

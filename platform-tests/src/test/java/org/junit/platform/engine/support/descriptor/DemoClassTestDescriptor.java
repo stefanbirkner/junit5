@@ -41,7 +41,6 @@ public class DemoClassTestDescriptor extends AbstractTestDescriptor {
 	@Override
 	public Set<TestTag> getTags() {
 		// Copied from org.junit.jupiter.engine.descriptor.JupiterTestDescriptor.getTags(AnnotatedElement)
-		// @formatter:off
 		return findRepeatableAnnotations(this.testClass, Tag.class).stream()
 				.map(Tag::value)
 				.filter(tag -> {
@@ -60,7 +59,6 @@ public class DemoClassTestDescriptor extends AbstractTestDescriptor {
 				})
 				.map(TestTag::create)
 				.collect(toCollection(LinkedHashSet::new));
-		// @formatter:on
 	}
 
 	@Override

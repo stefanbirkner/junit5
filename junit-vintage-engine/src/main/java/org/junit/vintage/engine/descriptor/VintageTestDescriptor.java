@@ -85,7 +85,6 @@ public class VintageTestDescriptor extends AbstractTestDescriptor {
 	private void addCategoriesAsTags(Set<TestTag> tags) {
 		Category annotation = description.getAnnotation(Category.class);
 		if (annotation != null) {
-			// @formatter:off
 			stream(annotation.value())
 					.map(ReflectionUtils::getAllAssignmentCompatibleClasses)
 					.flatMap(Collection::stream)
@@ -93,7 +92,6 @@ public class VintageTestDescriptor extends AbstractTestDescriptor {
 					.map(Class::getName)
 					.map(TestTag::create)
 					.forEachOrdered(tags::add);
-			// @formatter:on
 		}
 	}
 

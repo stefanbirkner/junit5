@@ -202,7 +202,6 @@ public final class TestIdentifier implements Serializable {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("uniqueId", this.uniqueId)
 				.append("parentId", this.parentId)
@@ -212,7 +211,6 @@ public final class TestIdentifier implements Serializable {
 				.append("tags", this.tags)
 				.append("type", this.type)
 				.toString();
-		// @formatter:on
 	}
 
 }

@@ -47,12 +47,10 @@ class TestClassCollector {
 	}
 
 	private Stream<TestClassRequest> filteredRequests() {
-		// @formatter:off
 		return filteredTestClasses.entrySet()
 				.stream()
 				.filter(where(Entry::getKey, testClass -> !completeTestClasses.contains(testClass)))
 				.map(entry -> new TestClassRequest(entry.getKey(), entry.getValue()));
-		// @formatter:on
 	}
 
 }

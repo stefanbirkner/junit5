@@ -60,14 +60,12 @@ public class ConditionEvaluator {
 	public ConditionEvaluationResult evaluate(ExtensionRegistry extensionRegistry,
 			ConfigurationParameters configurationParameters, ExtensionContext context) {
 
-		// @formatter:off
 		return extensionRegistry.stream(ExecutionCondition.class)
 				.filter(conditionIsActivated(configurationParameters))
 				.map(condition -> evaluate(condition, context))
 				.filter(ConditionEvaluationResult::isDisabled)
 				.findFirst()
 				.orElse(ENABLED);
-		// @formatter:on
 	}
 
 	private ConditionEvaluationResult evaluate(ExecutionCondition condition, ExtensionContext context) {
@@ -104,12 +102,10 @@ public class ConditionEvaluator {
 	}
 
 	private String getDeactivatePatternString(ConfigurationParameters configurationParameters) {
-		// @formatter:off
 		return configurationParameters.get(DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME)
 				.filter(StringUtils::isNotBlank)
 				.map(String::trim)
 				.orElse(null);
-		// @formatter:on
 	}
 
 	/**

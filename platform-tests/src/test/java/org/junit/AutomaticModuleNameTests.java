@@ -62,7 +62,6 @@ class AutomaticModuleNameTests {
 
 	@SuppressWarnings("unused")
 	private static List<String> moduleDirectoryNames() throws IOException {
-		// @formatter:off
 		String startOfModuleLine = "include '";
 		try (Stream<String> stream = Files.lines(Paths.get("../settings.gradle"))
 				.filter(line -> line.startsWith(startOfModuleLine))
@@ -72,7 +71,6 @@ class AutomaticModuleNameTests {
 				.filter(name -> name.startsWith("junit-"))) {
 			return stream.collect(Collectors.toList());
 		}
-		// @formatter:on
 	}
 
 	@ParameterizedTest
@@ -89,14 +87,12 @@ class AutomaticModuleNameTests {
 			assertEquals(expected, automaticModuleName);
 			// second, check entries are located in matching packages
 			String expectedStartOfPackageName = expected.replace('.', '/');
-			// @formatter:off
 			List<String> unexpectedNames = jarFile.stream()
 					.map(ZipEntry::getName)
 					.filter(n -> n.endsWith(".class"))
 					.filter(n -> !n.startsWith(expectedStartOfPackageName))
 					.filter(n -> !(n.startsWith("META-INF/versions/") && n.contains(expectedStartOfPackageName)))
 					.collect(toList());
-			// @formatter:on
 			assertTrue(unexpectedNames.isEmpty(),
 				unexpectedNames.size() + " entries are not located in (a sub-) package of " + expectedStartOfPackageName
 						+ ": " + unexpectedNames);

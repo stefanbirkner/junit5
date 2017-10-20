@@ -132,7 +132,6 @@ class ParameterizedTestDemo {
 	}
 	// end::primitive_MethodSource_example[]
 
-	// @formatter:off
 	// tag::multi_arg_MethodSource_example[]
 	@ParameterizedTest
 	@MethodSource("stringIntAndListProvider")
@@ -149,7 +148,6 @@ class ParameterizedTestDemo {
 		);
 	}
 	// end::multi_arg_MethodSource_example[]
-	// @formatter:on
 
 	// tag::CsvSource_example[]
 	@ParameterizedTest

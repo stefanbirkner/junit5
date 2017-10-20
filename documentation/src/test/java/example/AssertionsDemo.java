@@ -10,7 +10,6 @@
 
 package example;
 
-// @formatter:off
 // tag::user_guide[]
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofMinutes;
@@ -142,7 +141,6 @@ class AssertionsDemo {
 
 }
 // end::user_guide[]
-// @formatter:on
 
 class Person {
 

@@ -72,7 +72,6 @@ class XmlReportsWritingListenerTests {
 		executeTests(engine, tempDirectory);
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\"",
@@ -92,7 +91,6 @@ class XmlReportsWritingListenerTests {
 			.doesNotContain("<skipped")
 			.doesNotContain("<failure")
 			.doesNotContain("<error");
-		//@formatter:on
 	}
 
 	@Test
@@ -104,7 +102,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"0\" failures=\"1\" errors=\"0\"",
@@ -117,7 +114,6 @@ class XmlReportsWritingListenerTests {
 				"</testsuite>")
 			.doesNotContain("<skipped")
 			.doesNotContain("<error");
-		//@formatter:on
 	}
 
 	@Test
@@ -131,7 +127,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"1\"",
@@ -144,7 +139,6 @@ class XmlReportsWritingListenerTests {
 				"</testsuite>")
 			.doesNotContain("<skipped")
 			.doesNotContain("<failure");
-		//@formatter:on
 	}
 
 	@Test
@@ -157,7 +151,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"1\" failures=\"0\" errors=\"0\"",
@@ -169,7 +162,6 @@ class XmlReportsWritingListenerTests {
 				"</testsuite>")
 			.doesNotContain("<failure")
 			.doesNotContain("<error");
-		//@formatter:on
 	}
 
 	@Test
@@ -181,7 +173,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"1\" failures=\"0\" errors=\"0\"",
@@ -195,7 +186,6 @@ class XmlReportsWritingListenerTests {
 				"</testsuite>")
 			.doesNotContain("<failure")
 			.doesNotContain("<error");
-		//@formatter:on
 	}
 
 	@Test
@@ -210,7 +200,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		//               start        end
 		// ----------- ---------- -----------
 		// engine          0 (1)    1,665 (6)
@@ -221,7 +210,6 @@ class XmlReportsWritingListenerTests {
 				"<testsuite", "time=\"1.665\"",
 				"<testcase name=\"firstTest\" classname=\"dummy\" time=\"0.333\"",
 				"<testcase name=\"secondTest\" classname=\"dummy\" time=\"0.333\"");
-		//@formatter:on
 	}
 
 	@Test
@@ -234,12 +222,10 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite",
 				"<testcase name=\"test\" classname=\"dummy\" time=\"0\"");
-		//@formatter:on
 	}
 
 	@Test
@@ -252,7 +238,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"1\" failures=\"0\" errors=\"0\"",
@@ -262,7 +247,6 @@ class XmlReportsWritingListenerTests {
 				"</skipped>",
 				"</testcase>",
 				"</testsuite>");
-		//@formatter:on
 	}
 
 	@Test
@@ -275,7 +259,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite name=\"dummy\" tests=\"1\" skipped=\"0\" failures=\"1\" errors=\"0\"",
@@ -286,7 +269,6 @@ class XmlReportsWritingListenerTests {
 				"</failure>",
 				"</testcase>",
 				"</testsuite>");
-		//@formatter:on
 	}
 
 	@Test
@@ -299,7 +281,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite",
@@ -309,7 +290,6 @@ class XmlReportsWritingListenerTests {
 				"</properties>",
 				"<testcase",
 				"</testsuite>");
-		//@formatter:on
 	}
 
 	@Test
@@ -325,7 +305,6 @@ class XmlReportsWritingListenerTests {
 
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-dummy.xml"));
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite",
@@ -333,7 +312,6 @@ class XmlReportsWritingListenerTests {
 				"timestamp=\"2016-01-28T14:02:59\"",
 				"<testcase",
 				"</testsuite>");
-		//@formatter:on
 	}
 
 	@Test
@@ -389,7 +367,6 @@ class XmlReportsWritingListenerTests {
 		String content = readValidXmlFile(tempDirectory.resolve("TEST-engine.xml"));
 		//testReporter.publishEntry("xml", content);
 
-		//@formatter:off
 		assertThat(content)
 			.containsSequence(
 				"<testsuite",
@@ -403,7 +380,6 @@ class XmlReportsWritingListenerTests {
 				"</system-out>",
 				"</testcase>",
 				"</testsuite>");
-		//@formatter:on
 	}
 
 	private void executeTests(TestEngine engine, Path tempDirectory) {

@@ -62,7 +62,6 @@ public abstract class JupiterTestDescriptor extends AbstractTestDescriptor
 	// --- TestDescriptor ------------------------------------------------------
 
 	protected static Set<TestTag> getTags(AnnotatedElement element) {
-		// @formatter:off
 		return findRepeatableAnnotations(element, Tag.class).stream()
 				.map(Tag::value)
 				.filter(tag -> {
@@ -81,7 +80,6 @@ public abstract class JupiterTestDescriptor extends AbstractTestDescriptor
 				})
 				.map(TestTag::create)
 				.collect(toCollection(LinkedHashSet::new));
-		// @formatter:on
 	}
 
 	protected static <E extends AnnotatedElement> String determineDisplayName(E element,
@@ -123,12 +121,10 @@ public abstract class JupiterTestDescriptor extends AbstractTestDescriptor
 
 	protected ExtensionRegistry populateNewExtensionRegistryFromExtendWith(AnnotatedElement annotatedElement,
 			ExtensionRegistry existingExtensionRegistry) {
-		// @formatter:off
 		List<Class<? extends Extension>> extensionTypes = findRepeatableAnnotations(annotatedElement, ExtendWith.class).stream()
 				.map(ExtendWith::value)
 				.flatMap(Arrays::stream)
 				.collect(toList());
-		// @formatter:on
 		return ExtensionRegistry.createRegistryFrom(existingExtensionRegistry, extensionTypes);
 	}
 

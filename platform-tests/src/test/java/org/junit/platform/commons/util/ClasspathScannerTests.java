@@ -126,13 +126,11 @@ class ClasspathScannerTests {
 	}
 
 	private void assertDebugMessageLogged(LogRecordListener listener, String regex) {
-		// @formatter:off
 		assertThat(listener.stream(ClasspathScanner.class, Level.FINE)
 				.map(LogRecord::getMessage)
 				.filter(m -> m.matches(regex))
 				.count()
 		).isEqualTo(1);
-		// @formatter:on
 	}
 
 	@Test

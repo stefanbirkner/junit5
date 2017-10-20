@@ -70,12 +70,10 @@ class JUnitPlatformTestTree {
 	}
 
 	private String getSuiteDisplayName(Class<?> testClass) {
-		// @formatter:off
 		return AnnotationUtils.findAnnotation(testClass, SuiteDisplayName.class)
 				.map(SuiteDisplayName::value)
 				.filter(StringUtils::isNotBlank)
 				.orElse(testClass.getName());
-		// @formatter:on
 	}
 
 	private void buildDescriptionTree(Description suiteDescription, TestPlan testPlan) {
@@ -127,11 +125,9 @@ class JUnitPlatformTestTree {
 	}
 
 	Set<TestIdentifier> getTestsInSubtree(TestIdentifier ancestor) {
-		// @formatter:off
 		return plan.getDescendants(ancestor).stream()
 				.filter(TestIdentifier::isTest)
 				.collect(toCollection(LinkedHashSet::new));
-		// @formatter:on
 	}
 
 	Set<TestIdentifier> getFilteredLeaves(Filter filter) {
@@ -151,13 +147,11 @@ class JUnitPlatformTestTree {
 	}
 
 	private Set<TestIdentifier> applyFilterToDescriptions(Filter filter) {
-		// @formatter:off
 		return descriptions.entrySet()
 				.stream()
 				.filter(entry -> filter.shouldRun(entry.getValue()))
 				.map(Entry::getKey)
 				.collect(toSet());
-		// @formatter:on
 	}
 
 }

@@ -119,12 +119,10 @@ public class FileSource implements FileSystemSource {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("file", this.file)
 				.append("filePosition", this.filePosition)
 				.toString();
-		// @formatter:on
 	}
 
 }

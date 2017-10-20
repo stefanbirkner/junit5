@@ -34,13 +34,11 @@ class DiscoveryFilterApplierTests {
 
 	@Test
 	void packageNameFilterInclude_nonMatchingPackagesAreExcluded() {
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class)
 				)
 				.build();
-		// @formatter:on
 
 		applyClassNamePredicate(engineDescriptor, includePackageNames("org.junit.jupiter.engine.unknown"));
 
@@ -50,7 +48,6 @@ class DiscoveryFilterApplierTests {
 	@Test
 	void packageNameFilterInclude_matchingPackagesAreIncluded() {
 
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class)
@@ -62,19 +59,16 @@ class DiscoveryFilterApplierTests {
 		assertThat(engineDescriptor.getDescendants())
 				.extracting(TestDescriptor::getUniqueId)
 				.containsExactly(UniqueId.root("class", "matching"));
-		// @formatter:on
 	}
 
 	@Test
 	void packageNameFilterExclude_matchingPackagesAreExcluded() {
 
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class)
 				)
 				.build();
-		// @formatter:on
 
 		applyClassNamePredicate(engineDescriptor, excludePackageNames("org.junit.jupiter.engine"));
 
@@ -84,7 +78,6 @@ class DiscoveryFilterApplierTests {
 	@Test
 	void packageNameFilterExclude_nonMatchingPackagesAreIncluded() {
 
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class)
@@ -96,13 +89,11 @@ class DiscoveryFilterApplierTests {
 		assertThat(engineDescriptor.getDescendants())
 				.extracting(TestDescriptor::getUniqueId)
 				.containsExactly(UniqueId.root("class", "matching"));
-		// @formatter:on
 	}
 
 	@Test
 	void nonMatchingClassesAreExcluded() {
 
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class),
@@ -115,13 +106,11 @@ class DiscoveryFilterApplierTests {
 		assertThat(engineDescriptor.getDescendants())
 				.extracting(TestDescriptor::getUniqueId)
 				.containsExactly(UniqueId.root("class", "matching"));
-		// @formatter:on
 	}
 
 	@Test
 	void nestedTestClassesAreAlwaysIncludedWhenTheirParentIs() {
 
-		// @formatter:off
 		TestDescriptor engineDescriptor = engineDescriptor()
 				.with(
 						classTestDescriptor("matching", MatchingClass.class)
@@ -137,7 +126,6 @@ class DiscoveryFilterApplierTests {
 						UniqueId.root("class", "matching"),
 						UniqueId.root("nested-class", "nested")
 				);
-		// @formatter:on
 	}
 
 	private void applyClassNamePredicate(TestDescriptor engineDescriptor, Filter<String> filter) {

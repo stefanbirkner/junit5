@@ -106,12 +106,10 @@ public class FilePosition implements Serializable {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("line", this.line)
 				.append("column", getColumn().orElse(-1))
 				.toString();
-		// @formatter:on
 	}
 
 }

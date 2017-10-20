@@ -128,12 +128,10 @@ class ToStringBuilderTests {
 	@Test
 	@SuppressWarnings("serial")
 	void withMapField() {
-		// @formatter:off
 		Map<String,Object> map = new LinkedHashMap<String,Object>() {{
 			put("foo", 42);
 			put("bar", "enigma");
 		}};
-		// @formatter:on
 		assertEquals("RoleModel [mystery map = {foo=42, bar=enigma}]",
 			new ToStringBuilder(new RoleModel()).append("mystery map", map).toString());
 	}
@@ -160,12 +158,10 @@ class ToStringBuilderTests {
 
 		@Override
 		public String toString() {
-			// @formatter:off
 			return new ToStringBuilder(this)
 				.append("name", this.name)
 				.append("age", this.age)
 				.toString();
-			// @formatter:on
 		}
 	}
 

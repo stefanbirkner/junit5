@@ -146,7 +146,6 @@ class ReflectionUtilsTests {
 
 	@Test
 	void newInstance() {
-		// @formatter:off
 		assertThat(ReflectionUtils.newInstance(C.class, "one", "two")).isNotNull();
 		assertThat(ReflectionUtils.newInstance(C.class)).isNotNull();
 		assertThat(ReflectionUtils.newInstance(C.class, new Object[0])).isNotNull();
@@ -158,7 +157,6 @@ class ReflectionUtilsTests {
 
 		RuntimeException exception = assertThrows(RuntimeException.class, () -> ReflectionUtils.newInstance(Exploder.class));
 		assertThat(exception).hasMessage("boom");
-		// @formatter:on
 	}
 
 	@Test
@@ -218,10 +216,8 @@ class ReflectionUtilsTests {
 
 	@Test
 	void invokeMethodPreconditions() {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> invokeMethod(null, new Object()));
 		assertThrows(PreconditionViolationException.class, () -> invokeMethod(Object.class.getMethod("hashCode"), null));
-		// @formatter:on
 	}
 
 	@Test
@@ -487,11 +483,9 @@ class ReflectionUtilsTests {
 
 	@Test
 	void getOutermostInstancePreconditions() {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.getOutermostInstance(null, null));
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.getOutermostInstance(null, Object.class));
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.getOutermostInstance(new Object(), null));
-		// @formatter:on
 	}
 
 	@Test
@@ -528,16 +522,13 @@ class ReflectionUtilsTests {
 
 	@Test
 	void findNestedClassesPreconditions() {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.findNestedClasses(null, null));
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.findNestedClasses(null, clazz -> true));
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.findNestedClasses(FirstClass.class, null));
-		// @formatter:on
 	}
 
 	@Test
 	void findNestedClasses() {
-		// @formatter:off
 		assertThat(ReflectionUtils.findNestedClasses(Object.class, clazz -> true)).isEmpty();
 
 		assertThat(ReflectionUtils.findNestedClasses(ClassWithNestedClasses.class, clazz -> true))
@@ -551,15 +542,12 @@ class ReflectionUtilsTests {
 
 		assertThat(ReflectionUtils.findNestedClasses(ClassExtendingClassWithNestedClasses.class, clazz -> true))
 			.containsOnly(Nested1.class, Nested2.class, Nested3.class, Nested4.class, Nested5.class);
-		// @formatter:on
 	}
 
 	@Test
 	void getDeclaredConstructorPreconditions() {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.getDeclaredConstructor(null));
 		assertThrows(PreconditionViolationException.class, () -> ReflectionUtils.getDeclaredConstructor(ClassWithTwoConstructors.class));
-		// @formatter:on
 	}
 
 	@Test
@@ -613,7 +601,6 @@ class ReflectionUtilsTests {
 
 	@Test
 	void findMethodByParameterTypesPreconditions() throws Exception {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> findMethod(null, null));
 		assertThrows(PreconditionViolationException.class, () -> findMethod(null, "method"));
 
@@ -631,7 +618,6 @@ class ReflectionUtilsTests {
 
 		exception = assertThrows(PreconditionViolationException.class, () -> findMethod(Files.class, "copy", new Class<?>[] { Path.class, null }));
 		assertThat(exception).hasMessage("Individual parameter types must not be null");
-		// @formatter:on
 	}
 
 	@Test
@@ -741,7 +727,6 @@ class ReflectionUtilsTests {
 
 	@Test
 	void findMethodsPreconditions() {
-		// @formatter:off
 		assertThrows(PreconditionViolationException.class, () -> findMethods(null, null));
 		assertThrows(PreconditionViolationException.class, () -> findMethods(null, clazz -> true));
 		assertThrows(PreconditionViolationException.class, () -> findMethods(String.class, null));
@@ -750,7 +735,6 @@ class ReflectionUtilsTests {
 		assertThrows(PreconditionViolationException.class, () -> findMethods(null, clazz -> true, BOTTOM_UP));
 		assertThrows(PreconditionViolationException.class, () -> findMethods(String.class, null, BOTTOM_UP));
 		assertThrows(PreconditionViolationException.class, () -> findMethods(String.class, clazz -> true, null));
-		// @formatter:on
 	}
 
 	@Test
@@ -974,11 +958,9 @@ class ReflectionUtilsTests {
 	}
 
 	private static List<String> signaturesOf(List<Method> methods) {
-		// @formatter:off
 		return methods.stream()
 			.map(m -> String.format("%s(%s)", m.getName(), ClassUtils.nullSafeToString(m.getParameterTypes())))
 			.collect(toList());
-		// @formatter:on
 	}
 
 	@Test

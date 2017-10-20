@@ -37,12 +37,10 @@ class AssertAllAssertionsTests {
 	@Test
 	void assertAllWithNullInExecutableArray() {
 		try {
-			// @formatter:off
 			assertAll(
 				() -> {},
 				(Executable) null
 			);
-			// @formatter:on
 		}
 		catch (PreconditionViolationException ex) {
 			assertMessageEquals(ex, "individual executables must not be null");
@@ -71,36 +69,30 @@ class AssertAllAssertionsTests {
 
 	@Test
 	void assertAllWithExecutablesThatDoNotThrowExceptions() {
-		// @formatter:off
 		assertAll(
 			() -> assertTrue(true),
 			() -> assertFalse(false),
 			() -> assertTrue(true)
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void assertAllWithExecutablesThatThrowAssertionErrors() {
-		// @formatter:off
 		MultipleFailuresError multipleFailuresError = assertThrows(MultipleFailuresError.class, () ->
 			assertAll(
 				() -> assertFalse(true),
 				() -> assertFalse(true)
 			)
 		);
-		// @formatter:on
 
 		assertExpectedExceptionTypes(multipleFailuresError, AssertionFailedError.class, AssertionFailedError.class);
 	}
 
 	@Test
 	void assertAllWithStreamOfExecutablesThatThrowAssertionErrors() {
-		// @formatter:off
 		MultipleFailuresError multipleFailuresError = assertThrows(MultipleFailuresError.class, () ->
 			assertAll(Stream.of(() -> assertFalse(true), () -> assertFalse(true)))
 		);
-		// @formatter:on
 
 		assertExpectedExceptionTypes(multipleFailuresError, AssertionFailedError.class, AssertionFailedError.class);
 	}

@@ -92,10 +92,8 @@ public class DynamicTest extends DynamicNode {
 		Preconditions.notNull(displayNameGenerator, "displayNameGenerator must not be null");
 		Preconditions.notNull(testExecutor, "testExecutor must not be null");
 
-		// @formatter:off
 		return StreamSupport.stream(spliteratorUnknownSize(inputGenerator, ORDERED), false)
 				.map(input -> dynamicTest(displayNameGenerator.apply(input), () -> testExecutor.accept(input)));
-		// @formatter:on
 	}
 
 	private final Executable executable;

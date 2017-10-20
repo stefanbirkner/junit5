@@ -47,7 +47,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 		String[] noArguments = {};
 		CommandLineOptions options = createParser().parse(noArguments);
 
-		// @formatter:off
 		assertAll(
 			() -> assertFalse(options.isAnsiColorOutputDisabled()),
 			() -> assertFalse(options.isDisplayHelp()),
@@ -70,23 +69,19 @@ class JOptSimpleCommandLineOptionsParserTests {
 			() -> assertEquals(emptyList(), options.getSelectedClasspathEntries()),
 			() -> assertEquals(emptyMap(), options.getConfigurationParameters())
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseSwitches() {
-		// @formatter:off
 		assertAll(
 			() -> assertParses("disable ansi", CommandLineOptions::isAnsiColorOutputDisabled, "--disable-ansi-colors"),
 			() -> assertParses("help", CommandLineOptions::isDisplayHelp, "-h", "--help"),
 			() -> assertParses("scan class path", CommandLineOptions::isScanClasspath, "--scan-class-path")
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseValidDetails() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(Details.VERBOSE, parseArgLine("--details verbose").getDetails()),
 			() -> assertEquals(Details.TREE, parseArgLine("--details tree").getDetails()),
@@ -95,7 +90,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 			() -> assertEquals(Details.NONE, parseArgLine("--details none").getDetails()),
 			() -> assertEquals(Details.NONE, parseArgLine("--details None").getDetails())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -105,7 +99,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidDetailsTheme() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(Theme.ASCII, parseArgLine("--details-theme ascii").getTheme()),
 			() -> assertEquals(Theme.ASCII, parseArgLine("--details-theme ASCII").getTheme()),
@@ -113,7 +106,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 			() -> assertEquals(Theme.UNICODE, parseArgLine("--details-theme UNICODE").getTheme()),
 			() -> assertEquals(Theme.UNICODE, parseArgLine("--details-theme uniCode").getTheme())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -123,24 +115,20 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidIncludeClassNamePatterns() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(singletonList(".*Test"), parseArgLine("-n .*Test").getIncludedClassNamePatterns()),
 			() -> assertEquals(asList(".*Test", ".*Tests"), parseArgLine("--include-classname .*Test --include-classname .*Tests").getIncludedClassNamePatterns()),
 			() -> assertEquals(singletonList(".*Test"), parseArgLine("--include-classname=.*Test").getIncludedClassNamePatterns())
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseValidExcludeClassNamePatterns() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(singletonList(".*Test"), parseArgLine("-N .*Test").getExcludedClassNamePatterns()),
 			() -> assertEquals(asList(".*Test", ".*Tests"), parseArgLine("--exclude-classname .*Test --exclude-classname .*Tests").getExcludedClassNamePatterns()),
 			() -> assertEquals(singletonList(".*Test"), parseArgLine("--exclude-classname=.*Test").getExcludedClassNamePatterns())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -160,7 +148,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidIncludedPackages() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(asList("org.junit.included"),
 						parseArgLine("--include-package org.junit.included").getIncludedPackages()),
@@ -169,12 +156,10 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(asList("org.junit.included1", "org.junit.included2"),
 						parseArgLine("--include-package org.junit.included1 --include-package org.junit.included2").getIncludedPackages())
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseValidExcludedPackages() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(asList("org.junit.excluded"),
 						parseArgLine("--exclude-package org.junit.excluded").getExcludedPackages()),
@@ -183,19 +168,16 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(asList("org.junit.excluded1", "org.junit.excluded2"),
 						parseArgLine("--exclude-package org.junit.excluded1 --exclude-package org.junit.excluded2").getExcludedPackages())
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseValidIncludedTags() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(asList("fast"), parseArgLine("-t fast").getIncludedTags()),
 			() -> assertEquals(asList("fast"), parseArgLine("--include-tag fast").getIncludedTags()),
 			() -> assertEquals(asList("fast"), parseArgLine("--include-tag=fast").getIncludedTags()),
 			() -> assertEquals(asList("fast", "slow"), parseArgLine("-t fast -t slow").getIncludedTags())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -205,14 +187,12 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidExcludedTags() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(asList("fast"), parseArgLine("-T fast").getExcludedTags()),
 			() -> assertEquals(asList("fast"), parseArgLine("--exclude-tag fast").getExcludedTags()),
 			() -> assertEquals(asList("fast"), parseArgLine("--exclude-tag=fast").getExcludedTags()),
 			() -> assertEquals(asList("fast", "slow"), parseArgLine("-T fast -T slow").getExcludedTags())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -222,13 +202,11 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidIncludedEngines() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(asList("junit-jupiter"), parseArgLine("-e junit-jupiter").getIncludedEngines()),
 			() -> assertEquals(asList("junit-vintage"), parseArgLine("--include-engine junit-vintage").getIncludedEngines()),
 			() -> assertEquals(emptyList(), parseArgLine("").getIncludedEngines())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -238,13 +216,11 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidExcludedEngines() {
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(asList("junit-jupiter"), parseArgLine("-E junit-jupiter").getExcludedEngines()),
 			() -> assertEquals(asList("junit-vintage"), parseArgLine("--exclude-engine junit-vintage").getExcludedEngines()),
 			() -> assertEquals(emptyList(), parseArgLine("").getExcludedEngines())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -255,7 +231,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 	@Test
 	void parseValidAdditionalClasspathEntries() {
 		Path dir = Paths.get(".");
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(singletonList(dir), parseArgLine("-cp .").getAdditionalClasspathEntries()),
 			() -> assertEquals(singletonList(dir), parseArgLine("--cp .").getAdditionalClasspathEntries()),
@@ -268,7 +243,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 			() -> assertEquals(asList(dir, Paths.get("src", "test", "java")), parseArgLine("-cp . -cp src/test/java").getAdditionalClasspathEntries()),
 			() -> assertEquals(asList(dir, Paths.get("src", "test", "java")), parseArgLine("-cp ." + File.pathSeparator + "src/test/java").getAdditionalClasspathEntries())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -279,12 +253,10 @@ class JOptSimpleCommandLineOptionsParserTests {
 	@Test
 	void parseValidXmlReportsDirs() {
 		Path dir = Paths.get("build", "test-results");
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(Optional.of(dir), parseArgLine("--reports-dir build/test-results").getReportsDir()),
 			() -> assertEquals(Optional.of(dir), parseArgLine("--reports-dir=build/test-results").getReportsDir())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -294,7 +266,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidUriSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList(new URI("file:///foo.txt")), parseArgLine("-u file:///foo.txt").getSelectedUris()),
 				() -> assertEquals(singletonList(new URI("file:///foo.txt")), parseArgLine("--u file:///foo.txt").getSelectedUris()),
@@ -304,7 +275,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList(new URI("file:///foo.txt")), parseArgLine("--select-uri=file:///foo.txt").getSelectedUris()),
 				() -> assertEquals(asList(new URI("file:///foo.txt"), new URI("http://localhost")), parseArgLine("-u file:///foo.txt -u http://localhost").getSelectedUris())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -314,7 +284,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidFileSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("foo.txt"), parseArgLine("-f foo.txt").getSelectedFiles()),
 				() -> assertEquals(singletonList("foo.txt"), parseArgLine("--f foo.txt").getSelectedFiles()),
@@ -324,7 +293,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("foo.txt"), parseArgLine("--select-file=foo.txt").getSelectedFiles()),
 				() -> assertEquals(asList("foo.txt", "bar.csv"), parseArgLine("-f foo.txt -f bar.csv").getSelectedFiles())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -334,7 +302,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidDirectorySelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("foo/bar"), parseArgLine("-d foo/bar").getSelectedDirectories()),
 				() -> assertEquals(singletonList("foo/bar"), parseArgLine("--d foo/bar").getSelectedDirectories()),
@@ -344,7 +311,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("foo/bar"), parseArgLine("--select-directory=foo/bar").getSelectedDirectories()),
 				() -> assertEquals(asList("foo/bar", "bar/qux"), parseArgLine("-d foo/bar -d bar/qux").getSelectedDirectories())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -354,7 +320,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidModuleSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("-o com.acme.foo").getSelectedModules()),
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("--o com.acme.foo").getSelectedModules()),
@@ -364,7 +329,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("--select-module=com.acme.foo").getSelectedModules()),
 				() -> assertEquals(asList("com.acme.foo", "com.example.bar"), parseArgLine("-o com.acme.foo -o com.example.bar").getSelectedModules())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -374,7 +338,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidPackageSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("-p com.acme.foo").getSelectedPackages()),
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("--p com.acme.foo").getSelectedPackages()),
@@ -384,7 +347,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("com.acme.foo"), parseArgLine("--select-package=com.acme.foo").getSelectedPackages()),
 				() -> assertEquals(asList("com.acme.foo", "com.example.bar"), parseArgLine("-p com.acme.foo -p com.example.bar").getSelectedPackages())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -394,7 +356,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidClassSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("com.acme.Foo"), parseArgLine("-c com.acme.Foo").getSelectedClasses()),
 				() -> assertEquals(singletonList("com.acme.Foo"), parseArgLine("--c com.acme.Foo").getSelectedClasses()),
@@ -404,7 +365,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("com.acme.Foo"), parseArgLine("--select-class=com.acme.Foo").getSelectedClasses()),
 				() -> assertEquals(asList("com.acme.Foo", "com.example.Bar"), parseArgLine("-c com.acme.Foo -c com.example.Bar").getSelectedClasses())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -414,7 +374,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidMethodSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("com.acme.Foo#m()"), parseArgLine("-m com.acme.Foo#m()").getSelectedMethods()),
 				() -> assertEquals(singletonList("com.acme.Foo#m()"), parseArgLine("--m com.acme.Foo#m()").getSelectedMethods()),
@@ -425,7 +384,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(asList("com.acme.Foo#m()", "com.example.Bar#method(java.lang.Object)"),
 						parseArgLine("-m com.acme.Foo#m() -m com.example.Bar#method(java.lang.Object)").getSelectedMethods())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -435,7 +393,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 
 	@Test
 	void parseValidClasspathResourceSelectors() {
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(singletonList("/foo.csv"), parseArgLine("-r /foo.csv").getSelectedClasspathResources()),
 				() -> assertEquals(singletonList("/foo.csv"), parseArgLine("--r /foo.csv").getSelectedClasspathResources()),
@@ -445,7 +402,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertEquals(singletonList("/foo.csv"), parseArgLine("--select-resource=/foo.csv").getSelectedClasspathResources()),
 				() -> assertEquals(asList("/foo.csv", "bar.json"), parseArgLine("-r /foo.csv -r bar.json").getSelectedClasspathResources())
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -456,7 +412,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 	@Test
 	void parseClasspathScanningEntries() {
 		Path dir = Paths.get(".");
-		// @formatter:off
 		assertAll(
 			() -> assertTrue(parseArgLine("--scan-class-path").isScanClasspath()),
 			() -> assertEquals(emptyList(), parseArgLine("--scan-class-path").getSelectedClasspathEntries()),
@@ -470,12 +425,10 @@ class JOptSimpleCommandLineOptionsParserTests {
 			() -> assertEquals(asList(dir, Paths.get("src/test/java")), parseArgLine("--scan-class-path . --scan-class-path src/test/java").getSelectedClasspathEntries()),
 			() -> assertEquals(asList(dir, Paths.get("src/test/java")), parseArgLine("--scan-class-path ." + File.pathSeparator + "src/test/java").getSelectedClasspathEntries())
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void parseValidConfigurationParameters() {
-		// @formatter:off
 		assertAll(
 				() -> assertThat(parseArgLine("-config foo=bar").getConfigurationParameters())
 						.containsOnly(entry("foo", "bar")),
@@ -488,7 +441,6 @@ class JOptSimpleCommandLineOptionsParserTests {
 				() -> assertThat(parseArgLine("--config foo=bar --config baz=qux").getConfigurationParameters())
 						.containsExactly(entry("foo", "bar"), entry("baz", "qux"))
 		);
-		// @formatter:on
 	}
 
 	@Test

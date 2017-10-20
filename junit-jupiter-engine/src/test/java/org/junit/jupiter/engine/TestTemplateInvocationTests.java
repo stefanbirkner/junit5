@@ -271,7 +271,6 @@ class TestTemplateInvocationTests extends AbstractJupiterTestEngineTests {
 
 		executeTests(request);
 
-		// @formatter:off
 		assertThat(TestTemplateTestClassWithDynamicLifecycleCallbacks.lifecycleEvents).containsExactly(
 			"beforeEach",
 				"beforeTestExecution",
@@ -284,7 +283,6 @@ class TestTemplateInvocationTests extends AbstractJupiterTestEngineTests {
 					"testTemplate:bar",
 				"afterTestExecution",
 			"afterEach");
-		// @formatter:on
 	}
 
 	@Test
@@ -336,13 +334,11 @@ class TestTemplateInvocationTests extends AbstractJupiterTestEngineTests {
 
 	private TestDescriptor findTestDescriptor(ExecutionEventRecorder eventRecorder,
 			Condition<ExecutionEvent> condition) {
-		// @formatter:off
 		return eventRecorder.eventStream()
 				.filter(condition::matches)
 				.findAny()
 				.map(ExecutionEvent::getTestDescriptor)
 				.orElseThrow(() -> new AssertionFailedError("Could not find execution event for condition: " + condition));
-		// @formatter:on
 	}
 
 	@SuppressWarnings({ "unchecked", "varargs", "rawtypes" })
@@ -578,13 +574,11 @@ class TestTemplateInvocationTests extends AbstractJupiterTestEngineTests {
 
 		@Override
 		public boolean supportsTestTemplate(ExtensionContext context) {
-			// @formatter:off
 			return context.getTestMethod()
 				.map(Method::getParameterTypes)
 				.map(Arrays::stream)
 				.map(parameters -> parameters.anyMatch(Predicate.isEqual(String.class)))
 				.orElse(false);
-			// @formatter:on
 		}
 
 		@Override

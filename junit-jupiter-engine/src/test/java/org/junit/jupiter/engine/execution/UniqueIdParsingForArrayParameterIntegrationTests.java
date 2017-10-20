@@ -42,7 +42,6 @@ class UniqueIdParsingForArrayParameterIntegrationTests extends AbstractJupiterTe
 		assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		UniqueId uniqueId = eventRecorder.getExecutionEvents().stream()
 				.map(ExecutionEvent::getTestDescriptor)
 				.distinct()
@@ -50,7 +49,6 @@ class UniqueIdParsingForArrayParameterIntegrationTests extends AbstractJupiterTe
 				.map(TestDescriptor::getUniqueId)
 				.findFirst()
 				.orElseThrow(AssertionError::new);
-		// @formatter:on
 
 		assertThat(UniqueId.parse(uniqueId.toString())).isEqualTo(uniqueId);
 	}

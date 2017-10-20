@@ -45,7 +45,6 @@ class CsvArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<CsvS
 		settings.setAutoConfigurationEnabled(false);
 		CsvParser csvParser = new CsvParser(settings);
 		AtomicLong index = new AtomicLong(0);
-		// @formatter:off
 		return Arrays.stream(lines)
 				.map(
 					line -> Preconditions.notNull(csvParser.parseLine(line),
@@ -53,7 +52,6 @@ class CsvArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<CsvS
 				)
 				.peek(values -> index.incrementAndGet())
 				.map(Arguments::of);
-		// @formatter:on
 	}
 
 }

@@ -27,7 +27,6 @@ import java.util.stream.Stream;
  * @since 5.0
  * @see ExtensionComposabilityTests
  */
-// @formatter:off
 public class KitchenSinkExtension implements
 
 	// Lifecycle Callbacks
@@ -49,7 +48,6 @@ public class KitchenSinkExtension implements
 	// @TestTemplate
 	TestTemplateInvocationContextProvider
 
-// @formatter:on
 {
 
 	// --- Lifecycle Callbacks -------------------------------------------------

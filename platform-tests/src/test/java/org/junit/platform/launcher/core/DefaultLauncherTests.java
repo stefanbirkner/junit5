@@ -206,13 +206,11 @@ class DefaultLauncherTests {
 
 		DefaultLauncher launcher = createLauncher(firstEngine, secondEngine);
 
-		// @formatter:off
 		TestPlan testPlan = launcher.discover(
 			request()
 				.selectors(selectUniqueId(test1.getUniqueId()), selectUniqueId(test2.getUniqueId()))
 				.filters(includeEngines("first"))
 				.build());
-		// @formatter:on
 
 		assertThat(testPlan.getRoots()).hasSize(1);
 		TestIdentifier rootIdentifier = testPlan.getRoots().iterator().next();
@@ -229,13 +227,11 @@ class DefaultLauncherTests {
 
 		DefaultLauncher launcher = createLauncher(firstEngine, secondEngine);
 
-		// @formatter:off
 		TestPlan testPlan = launcher.discover(
 			request()
 				.selectors(selectUniqueId(test1.getUniqueId()), selectUniqueId(test2.getUniqueId()))
 				.filters(includeEngines("first", "second"))
 				.build());
-		// @formatter:on
 
 		assertThat(testPlan.getRoots()).hasSize(2);
 	}
@@ -249,13 +245,11 @@ class DefaultLauncherTests {
 
 		DefaultLauncher launcher = createLauncher(firstEngine, secondEngine);
 
-		// @formatter:off
 		TestPlan testPlan = launcher.discover(
 			request()
 				.selectors(selectUniqueId(test1.getUniqueId()), selectUniqueId(test2.getUniqueId()))
 				.filters(includeEngines("first"), includeEngines("second"))
 				.build());
-		// @formatter:on
 
 		assertThat(testPlan.getRoots()).isEmpty();
 	}
@@ -269,13 +263,11 @@ class DefaultLauncherTests {
 
 		DefaultLauncher launcher = createLauncher(firstEngine, secondEngine);
 
-		// @formatter:off
 		TestPlan testPlan = launcher.discover(
 			request()
 				.selectors(selectUniqueId(test1.getUniqueId()), selectUniqueId(test2.getUniqueId()))
 				.filters(excludeEngines("second"))
 				.build());
-		// @formatter:on
 
 		assertThat(testPlan.getRoots()).hasSize(1);
 		TestIdentifier rootIdentifier = testPlan.getRoots().iterator().next();
@@ -294,13 +286,11 @@ class DefaultLauncherTests {
 
 		DefaultLauncher launcher = createLauncher(firstEngine, secondEngine, thirdEngine);
 
-		// @formatter:off
 		TestPlan testPlan = launcher.discover(
 			request()
 				.selectors(selectUniqueId(test1.getUniqueId()), selectUniqueId(test2.getUniqueId()), selectUniqueId(test3.getUniqueId()))
 				.filters(includeEngines("first", "second"), excludeEngines("second"))
 				.build());
-		// @formatter:on
 
 		assertThat(testPlan.getRoots()).hasSize(1);
 		TestIdentifier rootIdentifier = testPlan.getRoots().iterator().next();

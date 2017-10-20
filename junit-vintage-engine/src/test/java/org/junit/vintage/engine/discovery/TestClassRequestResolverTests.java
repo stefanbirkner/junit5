@@ -66,7 +66,6 @@ class TestClassRequestResolverTests {
 
 		resolve(new TestClassRequest(testClass, asList(filter)));
 
-		// @formatter:off
 		assertThat(listener.stream(TestClassRequestResolver.class, Level.WARNING)
 			.map(LogRecord::getMessage)
 			.filter(m -> m.equals("Runner " + IgnoredClassRunner.class.getName() //
@@ -74,7 +73,6 @@ class TestClassRequestResolverTests {
 				+ " and will therefore be run completely."))
 			.count()
 		).isEqualTo(1);
-		// @formatter:on
 	}
 
 	private void resolve(TestClassRequest request) {

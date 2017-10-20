@@ -98,11 +98,9 @@ class DefaultLauncher implements Launcher {
 		Root root = new Root();
 
 		for (TestEngine testEngine : this.testEngines) {
-			// @formatter:off
 			boolean engineIsExcluded = discoveryRequest.getEngineFilters().stream()
 					.map(engineFilter -> engineFilter.apply(testEngine))
 					.anyMatch(FilterResult::excluded);
-			// @formatter:on
 
 			if (engineIsExcluded) {
 				logger.debug(() -> String.format(

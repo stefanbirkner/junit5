@@ -235,12 +235,10 @@ public class UniqueId implements Cloneable, Serializable {
 
 		@Override
 		public String toString() {
-			// @formatter:off
 			return new ToStringBuilder(this)
 					.append("type", this.type)
 					.append("value", this.value)
 					.toString();
-			// @formatter:on
 		}
 
 	}

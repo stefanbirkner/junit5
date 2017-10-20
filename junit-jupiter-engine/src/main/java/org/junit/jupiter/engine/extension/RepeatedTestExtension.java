@@ -44,11 +44,9 @@ class RepeatedTestExtension implements TestTemplateInvocationContextProvider {
 		int totalRepetitions = totalRepetitions(repeatedTest, testMethod);
 		RepeatedTestDisplayNameFormatter formatter = displayNameFormatter(repeatedTest, testMethod, displayName);
 
-		// @formatter:off
 		return IntStream
 				.rangeClosed(1, totalRepetitions)
 				.mapToObj(repetition -> new RepeatedTestInvocationContext(repetition, totalRepetitions, formatter));
-		// @formatter:on
 	}
 
 	private int totalRepetitions(RepeatedTest repeatedTest, Method method) {

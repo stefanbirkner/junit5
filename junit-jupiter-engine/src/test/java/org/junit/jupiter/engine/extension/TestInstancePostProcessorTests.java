@@ -51,7 +51,6 @@ class TestInstancePostProcessorTests extends AbstractJupiterTestEngineTests {
 		assertEquals(2, eventRecorder.getTestStartedCount(), "# tests started");
 		assertEquals(2, eventRecorder.getTestSuccessfulCount(), "# tests succeeded");
 
-		// @formatter:off
 		assertThat(callSequence).containsExactly(
 
 			// OuterTestCase
@@ -68,7 +67,6 @@ class TestInstancePostProcessorTests extends AbstractJupiterTestEngineTests {
 						"beforeInnerMethod",
 							"testInner"
 		);
-		// @formatter:on
 	}
 
 	@Test

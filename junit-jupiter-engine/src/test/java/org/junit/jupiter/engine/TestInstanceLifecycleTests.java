@@ -115,7 +115,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 		String beforeEachCallbackKey3 = beforeEachCallbackKey(testClass, testsInvoked.get(2));
 		String afterEachCallbackKey3 = afterEachCallbackKey(testClass, testsInvoked.get(2));
 
-		// @formatter:off
 		assertThat(instanceMap.keySet()).containsExactlyInAnyOrder(
 				containerExecutionConditionKey,
 				beforeAllCallbackKey,
@@ -132,7 +131,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 				afterEachCallbackKey3,
 				afterAllCallbackKey
 		);
-		// @formatter:on
 
 		assertNull(instanceMap.get(containerExecutionConditionKey));
 		assertNull(instanceMap.get(beforeAllCallbackKey));
@@ -190,7 +188,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 		String beforeEachCallbackKey3 = beforeEachCallbackKey(testClass, testsInvoked.get(2));
 		String afterEachCallbackKey3 = afterEachCallbackKey(testClass, testsInvoked.get(2));
 
-		// @formatter:off
 		assertThat(instanceMap.keySet()).containsExactlyInAnyOrder(
 				postProcessTestInstanceKey,
 				containerExecutionConditionKey,
@@ -207,7 +204,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 				afterEachCallbackKey3,
 				afterAllCallbackKey
 		);
-		// @formatter:on
 
 		Object instance = instanceMap.get(beforeAllCallbackKey);
 		assertNotNull(instance);
@@ -260,7 +256,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 		String nestedBeforeEachCallbackKey3 = beforeEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 		String nestedAfterEachCallbackKey3 = afterEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 
-		// @formatter:off
 		assertThat(instanceMap.keySet()).containsExactlyInAnyOrder(
 				containerExecutionConditionKey,
 				nestedTestTemplateKey,
@@ -284,7 +279,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 				nestedBeforeEachCallbackKey3,
 				nestedAfterEachCallbackKey3
 		);
-		// @formatter:on
 
 		assertNull(instanceMap.get(containerExecutionConditionKey));
 		assertNull(instanceMap.get(beforeAllCallbackKey));
@@ -365,7 +359,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 		String nestedBeforeEachCallbackKey3 = beforeEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 		String nestedAfterEachCallbackKey3 = afterEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 
-		// @formatter:off
 		assertThat(instanceMap.keySet()).containsExactlyInAnyOrder(
 				containerExecutionConditionKey,
 				nestedTestTemplateKey,
@@ -389,7 +382,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 				nestedBeforeEachCallbackKey3,
 				nestedAfterEachCallbackKey3
 		);
-		// @formatter:on
 
 		Object instance = instanceMap.get(postProcessTestInstanceKey);
 		assertNotNull(instance);
@@ -455,7 +447,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 		String nestedBeforeEachCallbackKey3 = beforeEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 		String nestedAfterEachCallbackKey3 = afterEachCallbackKey(nestedTestClass, testsInvoked.get(2));
 
-		// @formatter:off
 		assertThat(instanceMap.keySet()).containsExactlyInAnyOrder(
 				containerExecutionConditionKey,
 				nestedTestTemplateKey,
@@ -479,7 +470,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 				nestedBeforeEachCallbackKey3,
 				nestedAfterEachCallbackKey3
 		);
-		// @formatter:on
 
 		assertNull(instanceMap.get(containerExecutionConditionKey));
 		assertNull(instanceMap.get(beforeAllCallbackKey));
@@ -563,7 +553,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 
 		ExecutionEventRecorder eventRecorder = executeTestsForClass(testClass);
 
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(containers, eventRecorder.getContainerStartedCount(), "# containers started"),
 			() -> assertEquals(containers, eventRecorder.getContainerFinishedCount(), "# containers finished"),
@@ -576,7 +565,6 @@ class TestInstanceLifecycleTests extends AbstractJupiterTestEngineTests {
 			() -> assertEquals(eachMethods, beforeEachCount, "@BeforeEach count"),
 			() -> assertEquals(eachMethods, afterEachCount, "@AfterEach count")
 		);
-		// @formatter:on
 	}
 
 	private static String executionConditionKey(Class<?> testClass, String testMethod) {

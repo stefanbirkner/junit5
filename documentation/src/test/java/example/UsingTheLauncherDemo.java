@@ -32,7 +32,6 @@ class UsingTheLauncherDemo {
 	@org.junit.jupiter.api.Test
 	@SuppressWarnings("unused")
 	void discovery() {
-		// @formatter:off
 		// tag::discovery[]
 		LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
 			.selectors(
@@ -48,12 +47,10 @@ class UsingTheLauncherDemo {
 
 		TestPlan testPlan = launcher.discover(request);
 		// end::discovery[]
-		// @formatter:on
 	}
 
 	@org.junit.jupiter.api.Test
 	void execution() {
-		// @formatter:off
 		// tag::execution[]
 		LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
 			.selectors(
@@ -73,7 +70,6 @@ class UsingTheLauncherDemo {
 
 		launcher.execute(request);
 		// end::execution[]
-		// @formatter:on
 	}
 }
 

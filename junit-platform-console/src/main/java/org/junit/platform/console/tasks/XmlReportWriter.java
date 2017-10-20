@@ -53,12 +53,10 @@ class XmlReportWriter {
 	}
 
 	void writeXmlReport(TestIdentifier testIdentifier, Writer out) throws XMLStreamException {
-		// @formatter:off
 		List<TestIdentifier> tests = this.reportData.getTestPlan().getDescendants(testIdentifier)
 				.stream()
 				.filter(TestIdentifier::isTest)
 				.collect(toList());
-		// @formatter:on
 		writeXmlReport(testIdentifier, tests, out);
 	}
 
@@ -154,11 +152,9 @@ class XmlReportWriter {
 	}
 
 	private String getClassName(TestIdentifier testIdentifier) {
-		// @formatter:off
 		return this.reportData.getTestPlan().getParent(testIdentifier)
 				.map(TestIdentifier::getLegacyReportingName)
 				.orElse("<unrooted>");
-		// @formatter:on
 	}
 
 	private void writeSkippedOrErrorOrFailureElement(TestIdentifier testIdentifier, XMLStreamWriter writer)

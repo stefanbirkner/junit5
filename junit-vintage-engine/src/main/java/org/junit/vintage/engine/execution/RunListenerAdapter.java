@@ -106,12 +106,10 @@ class RunListenerAdapter extends RunListener {
 	}
 
 	private TestDescriptor findParent(Description description) {
-		// @formatter:off
 		return Optional.ofNullable(description.getTestClass())
 				.map(Description::createSuiteDescription)
 				.flatMap(testRun::lookupTestDescriptor)
 				.orElseGet(testRun::getRunnerTestDescriptor);
-		// @formatter:on
 	}
 
 	private void handleFailure(Failure failure, Function<Throwable, TestExecutionResult> resultCreator) {

@@ -82,13 +82,11 @@ public class TestMethodTestDescriptor extends MethodBasedTestDescriptor {
 		ExtensionContext extensionContext = new MethodExtensionContext(context.getExtensionContext(),
 			context.getExecutionListener(), this, testInstance, throwableCollector);
 
-		// @formatter:off
 		return context.extend()
 				.withExtensionRegistry(registry)
 				.withExtensionContext(extensionContext)
 				.withThrowableCollector(throwableCollector)
 				.build();
-		// @formatter:on
 	}
 
 	protected ExtensionRegistry populateNewExtensionRegistry(JupiterEngineExecutionContext context) {
@@ -100,7 +98,6 @@ public class TestMethodTestDescriptor extends MethodBasedTestDescriptor {
 			DynamicTestExecutor dynamicTestExecutor) throws Exception {
 		ThrowableCollector throwableCollector = context.getThrowableCollector();
 
-		// @formatter:off
 		invokeBeforeEachCallbacks(context);
 			if (throwableCollector.isEmpty()) {
 				invokeBeforeEachMethods(context);
@@ -114,7 +111,6 @@ public class TestMethodTestDescriptor extends MethodBasedTestDescriptor {
 				invokeAfterEachMethods(context);
 			}
 		invokeAfterEachCallbacks(context);
-		// @formatter:on
 
 		throwableCollector.assertEmpty();
 

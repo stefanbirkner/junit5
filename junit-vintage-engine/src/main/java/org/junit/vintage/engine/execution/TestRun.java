@@ -52,12 +52,10 @@ class TestRun {
 	TestRun(RunnerTestDescriptor runnerTestDescriptor) {
 		this.runnerTestDescriptor = runnerTestDescriptor;
 		runnerDescendants = new LinkedHashSet<>(runnerTestDescriptor.getDescendants());
-		// @formatter:off
 		descriptionToDescriptors = concat(Stream.of(runnerTestDescriptor), runnerDescendants.stream())
 				.map(VintageTestDescriptor.class::cast)
 				.collect(groupingBy(
 						VintageTestDescriptor::getDescription, HashMap::new, toCollection(ArrayList::new)));
-		// @formatter:on
 	}
 
 	void registerDynamicTest(VintageTestDescriptor testDescriptor) {
@@ -94,11 +92,9 @@ class TestRun {
 		if (descriptors.size() == 1) {
 			return Optional.of(getOnlyElement(descriptors));
 		}
-		// @formatter:off
 		return descriptors.stream()
 				.filter(testDescriptor -> description == testDescriptor.getDescription())
 				.findFirst();
-		// @formatter:on
 	}
 
 	void markSkipped(TestDescriptor testDescriptor) {
@@ -156,13 +152,11 @@ class TestRun {
 		if (testExecutionResults.size() == 1) {
 			return testExecutionResults.get(0);
 		}
-		// @formatter:off
 		List<Throwable> failures = testExecutionResults
 				.stream()
 				.map(TestExecutionResult::getThrowable)
 				.map(Optional::get)
 				.collect(toList());
-		// @formatter:on
 		return failed(new MultipleFailuresError("", failures));
 	}
 }

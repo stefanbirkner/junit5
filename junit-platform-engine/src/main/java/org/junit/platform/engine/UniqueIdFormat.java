@@ -123,11 +123,9 @@ class UniqueIdFormat implements Serializable {
 	 * Format and return the string representation of the supplied {@code UniqueId}.
 	 */
 	String format(UniqueId uniqueId) {
-		// @formatter:off
 		return uniqueId.getSegments().stream()
 			.map(this::describe)
 			.collect(joining(String.valueOf(this.segmentDelimiter)));
-		// @formatter:on
 	}
 
 	private String describe(Segment segment) {

@@ -166,11 +166,9 @@ class ExecutableInvokerTests {
 
 		ParameterResolutionException caught = assertThrows(ParameterResolutionException.class, this::invokeMethod);
 
-		// @formatter:off
 		assertThat(caught.getMessage())
 				.contains("resolved a null value for parameter [int")
 				.contains("but a primitive of type [int] is required.");
-		// @formatter:on
 	}
 
 	@Test
@@ -190,11 +188,9 @@ class ExecutableInvokerTests {
 
 		ParameterResolutionException caught = assertThrows(ParameterResolutionException.class, this::invokeMethod);
 
-		// @formatter:off
 		assertThat(caught.getMessage())
 				.contains("parameter [java.lang.String")
 				.contains(ConfigurableParameterResolver.class.getName() + ", " + ConfigurableParameterResolver.class.getName());
-		// @formatter:on
 	}
 
 	@Test
@@ -204,11 +200,9 @@ class ExecutableInvokerTests {
 
 		ParameterResolutionException caught = assertThrows(ParameterResolutionException.class, this::invokeMethod);
 
-		// @formatter:off
 		assertThat(caught.getMessage())
 				.contains("resolved a value of type [java.math.BigDecimal] for parameter [java.lang.String")
 				.contains("but a value assignment compatible with [java.lang.String] is required.");
-		// @formatter:on
 	}
 
 	@Test

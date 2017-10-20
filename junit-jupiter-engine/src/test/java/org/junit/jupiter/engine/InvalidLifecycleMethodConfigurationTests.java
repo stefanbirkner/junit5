@@ -60,7 +60,6 @@ class InvalidLifecycleMethodConfigurationTests extends AbstractJupiterTestEngine
 
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 			() -> assertEquals(3, eventRecorder.getContainerStartedCount(), "# containers started"),
 			() -> assertEquals(1, eventRecorder.getTestStartedCount(), "# tests started"),
@@ -69,7 +68,6 @@ class InvalidLifecycleMethodConfigurationTests extends AbstractJupiterTestEngine
 			() -> assertEquals(3, eventRecorder.getContainerFinishedCount(), "# containers finished"),
 			() -> assertEquals(1, eventRecorder.getContainerFailedCount(), "# containers failed")
 		);
-		// @formatter:on
 	}
 
 	// -------------------------------------------------------------------------

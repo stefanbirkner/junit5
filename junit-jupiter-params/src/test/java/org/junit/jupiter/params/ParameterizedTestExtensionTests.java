@@ -102,11 +102,9 @@ class ParameterizedTestExtensionTests {
 
 	private ExtensionContext getExtensionContextReturningSingleMethod(Object testCase) {
 
-		// @formatter:off
 		Optional<Method> optional = Arrays.stream(testCase.getClass().getDeclaredMethods())
 				.filter(method -> method.getName().equals("method"))
 				.findFirst();
-		// @formatter:on
 
 		return new ExtensionContext() {
 

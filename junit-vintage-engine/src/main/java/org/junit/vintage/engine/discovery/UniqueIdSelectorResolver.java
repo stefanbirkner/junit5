@@ -34,14 +34,12 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 
 	@Override
 	public void resolve(EngineDiscoveryRequest request, ClassFilter classFilter, TestClassCollector collector) {
-		// @formatter:off
 		request.getSelectorsByType(UniqueIdSelector.class)
 			.stream()
 			.map(UniqueIdSelector::getUniqueId)
 			.filter(this::isNotEngineId)
 			.filter(this::isForVintageEngine)
 			.forEach(uniqueId -> resolveIntoFilteredTestClass(uniqueId, classFilter, collector));
-		// @formatter:on
 	}
 
 	private boolean isNotEngineId(UniqueId uniqueId) {
@@ -53,21 +51,17 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 	}
 
 	private boolean isForVintageEngine(UniqueId uniqueId) {
-		// @formatter:off
 		return uniqueId.getEngineId()
 			.map(engineId -> engineId.equals(ENGINE_ID))
 			.orElse(false);
-		// @formatter:on
 	}
 
 	private void resolveIntoFilteredTestClass(UniqueId uniqueId, ClassFilter classFilter,
 			TestClassCollector collector) {
-		// @formatter:off
 		determineTestClassName(uniqueId)
 				.flatMap(testClassName -> loadTestClass(testClassName, uniqueId))
 				.filter(classFilter)
 				.ifPresent(testClass -> collector.addFiltered(testClass, new UniqueIdFilter(uniqueId)));
-		// @formatter:on
 	}
 
 	private Optional<Class<?>> loadTestClass(String className, UniqueId uniqueId) {

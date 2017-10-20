@@ -313,12 +313,10 @@ public class JUnitPlatform extends Runner implements Filterable {
 	}
 
 	private LauncherDiscoveryRequest createDiscoveryRequestForUniqueIds(Set<TestIdentifier> testIdentifiers) {
-		// @formatter:off
 		List<DiscoverySelector> selectors = testIdentifiers.stream()
 				.map(TestIdentifier::getUniqueId)
 				.map(DiscoverySelectors::selectUniqueId)
 				.collect(toList());
-		// @formatter:on
 		return request().selectors(selectors).build();
 	}
 

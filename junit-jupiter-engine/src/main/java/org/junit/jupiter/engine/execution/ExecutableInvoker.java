@@ -180,11 +180,9 @@ public class ExecutableInvoker {
 			ExtensionContext extensionContext, ExtensionRegistry extensionRegistry) {
 
 		try {
-			// @formatter:off
 			List<ParameterResolver> matchingResolvers = extensionRegistry.stream(ParameterResolver.class)
 					.filter(resolver -> resolver.supportsParameter(parameterContext, extensionContext))
 					.collect(toList());
-			// @formatter:on
 
 			if (matchingResolvers.isEmpty()) {
 				throw new ParameterResolutionException(
@@ -193,11 +191,9 @@ public class ExecutableInvoker {
 			}
 
 			if (matchingResolvers.size() > 1) {
-				// @formatter:off
 				String resolverNames = matchingResolvers.stream()
 						.map(resolver -> resolver.getClass().getName())
 						.collect(joining(", "));
-				// @formatter:on
 				throw new ParameterResolutionException(String.format(
 					"Discovered multiple competing ParameterResolvers for parameter [%s] in executable [%s]: %s",
 					parameterContext.getParameter(), executable.toGenericString(), resolverNames));

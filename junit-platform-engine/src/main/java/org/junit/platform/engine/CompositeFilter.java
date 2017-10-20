@@ -58,33 +58,27 @@ class CompositeFilter<T> implements Filter<T> {
 
 	@Override
 	public FilterResult apply(T element) {
-		// @formatter:off
 		return filters.stream()
 				.map(filter -> filter.apply(element))
 				.filter(FilterResult::excluded)
 				.findFirst()
 				.orElse(INCLUDED_BY_ALL_FILTERS);
-		// @formatter:on
 	}
 
 	@Override
 	public Predicate<T> toPredicate() {
-		// @formatter:off
 		return filters.stream()
 				.map(Filter::toPredicate)
 				.reduce(Predicate::and)
 				.get(); // it's safe to call get() here because the constructor ensures filters is not empty
-		// @formatter:on
 	}
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return filters.stream()
 				.map(Object::toString)
 				.map(value -> format("(%s)", value))
 				.collect(joining(" and "));
-		// @formatter:on
 	}
 
 }

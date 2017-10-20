@@ -308,12 +308,10 @@ class DynamicNodeGenerationTests extends AbstractJupiterTestEngineTests {
 
 		@TestFactory
 		Iterable<DynamicNode> dynamicContainerWithExceptionThrowingStream() {
-			// @formatter:off
 			return singleton(dynamicContainer("box",
 					IntStream.rangeClosed(0, 100)
 							.mapToObj(list::get)
 							.onClose(() -> exceptionThrowingStreamClosed.set(true))));
-			// @formatter:on
 		}
 
 		@TestFactory

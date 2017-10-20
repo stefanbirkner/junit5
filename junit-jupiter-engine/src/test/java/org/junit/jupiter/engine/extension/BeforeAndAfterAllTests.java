@@ -46,7 +46,6 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 
 	@Test
 	void beforeAllAndAfterAllCallbacks() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(TopLevelTestCase.class,
 			"fooBeforeAllCallback",
 			"barBeforeAllCallback",
@@ -56,14 +55,12 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 			"barAfterAllCallback",
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).isEmpty();
 	}
 
 	@Test
 	void beforeAllAndAfterAllCallbacksInSubclass() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(SecondLevelTestCase.class,
 			"fooBeforeAllCallback",
 			"barBeforeAllCallback",
@@ -77,14 +74,12 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 			"barAfterAllCallback",
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).isEmpty();
 	}
 
 	@Test
 	void beforeAllAndAfterAllCallbacksInSubSubclass() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(ThirdLevelTestCase.class,
 			"fooBeforeAllCallback",
 			"barBeforeAllCallback",
@@ -102,14 +97,12 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 			"barAfterAllCallback",
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).isEmpty();
 	}
 
 	@Test
 	void beforeAllAndAfterAllCallbacksInSubSubclassWithStaticMethodHiding() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(ThirdLevelStaticHidingTestCase.class,
 			"fooBeforeAllCallback",
 			"barBeforeAllCallback",
@@ -129,14 +122,12 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 			"barAfterAllCallback",
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).isEmpty();
 	}
 
 	@Test
 	void beforeAllMethodThrowsAnException() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(ExceptionInBeforeAllMethodTestCase.class, 0, 0,
 			"fooBeforeAllCallback",
 				"beforeAllMethod", // throws an exception.
@@ -144,14 +135,12 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 				"afterAllMethod",
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).containsInstanceOf(EnigmaException.class);
 	}
 
 	@Test
 	void beforeAllCallbackThrowsAnException() {
-		// @formatter:off
 		assertBeforeAllAndAfterAllCallbacks(ExceptionInBeforeAllCallbackTestCase.class, 0, 0,
 			"fooBeforeAllCallback",
 			"exceptionThrowingBeforeAllCallback", // throws an exception.
@@ -160,7 +149,6 @@ class BeforeAndAfterAllTests extends AbstractJupiterTestEngineTests {
 				// afterAllMethod should not get invoked.
 			"fooAfterAllCallback"
 		);
-		// @formatter:on
 
 		assertThat(actualExceptionInAfterAllCallback).containsInstanceOf(EnigmaException.class);
 	}

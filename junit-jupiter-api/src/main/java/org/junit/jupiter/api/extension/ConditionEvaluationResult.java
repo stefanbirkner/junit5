@@ -73,12 +73,10 @@ public class ConditionEvaluationResult {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("enabled", this.enabled)
 				.append("reason", this.reason.orElse("<unknown>"))
 				.toString();
-		// @formatter:on
 	}
 
 }

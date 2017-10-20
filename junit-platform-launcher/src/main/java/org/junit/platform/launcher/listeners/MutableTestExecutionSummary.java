@@ -139,7 +139,6 @@ class MutableTestExecutionSummary implements TestExecutionSummary {
 
 	@Override
 	public void printTo(PrintWriter writer) {
-		// @formatter:off
 		writer.println(String.format(
 			"%nTest run finished after %d ms%n"
 
@@ -173,7 +172,6 @@ class MutableTestExecutionSummary implements TestExecutionSummary {
 			getTestsSucceededCount(),
 			getTestsFailedCount()
 		));
-		// @formatter:on
 
 		writer.flush();
 	}

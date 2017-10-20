@@ -63,12 +63,10 @@ public class TestTemplateTestDescriptor extends MethodBasedTestDescriptor {
 		ExtensionContext extensionContext = new TestTemplateExtensionContext(context.getExtensionContext(),
 			context.getExecutionListener(), this, testInstance);
 
-		// @formatter:off
 		return context.extend()
 				.withExtensionRegistry(registry)
 				.withExtensionContext(extensionContext)
 				.build();
-		// @formatter:on
 	}
 
 	@Override
@@ -79,12 +77,10 @@ public class TestTemplateTestDescriptor extends MethodBasedTestDescriptor {
 		List<TestTemplateInvocationContextProvider> providers = validateProviders(extensionContext,
 			context.getExtensionRegistry());
 		AtomicInteger invocationIndex = new AtomicInteger();
-		// @formatter:off
 		providers.stream()
 				.flatMap(provider -> provider.provideTestTemplateInvocationContexts(extensionContext))
 				.map(invocationContext -> createInvocationTestDescriptor(invocationContext, invocationIndex.incrementAndGet()))
 				.forEach(invocationTestDescriptor -> execute(dynamicTestExecutor, invocationTestDescriptor));
-		// @formatter:on
 		validateWasAtLeastInvokedOnce(invocationIndex.get());
 		return context;
 	}
@@ -92,11 +88,9 @@ public class TestTemplateTestDescriptor extends MethodBasedTestDescriptor {
 	private List<TestTemplateInvocationContextProvider> validateProviders(ExtensionContext extensionContext,
 			ExtensionRegistry extensionRegistry) {
 
-		// @formatter:off
 		List<TestTemplateInvocationContextProvider> providers = extensionRegistry.stream(TestTemplateInvocationContextProvider.class)
 				.filter(provider -> provider.supportsTestTemplate(extensionContext))
 				.collect(toList());
-		// @formatter:on
 
 		return Preconditions.notEmpty(providers,
 			() -> String.format("You must register at least one %s that supports @TestTemplate method [%s]",

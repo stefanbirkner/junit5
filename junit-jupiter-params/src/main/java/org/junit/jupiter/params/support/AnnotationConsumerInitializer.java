@@ -38,12 +38,10 @@ public final class AnnotationConsumerInitializer {
 	}
 	///CLOVER:ON
 
-	// @formatter:off
 	private static final Predicate<Method> isAnnotationConsumerAcceptMethod = method ->
 			method.getName().equals("accept")
 			&& method.getParameterCount() == 1
 			&& method.getParameterTypes()[0].isAnnotation();
-	// @formatter:on
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T initialize(AnnotatedElement annotatedElement, T instance) {

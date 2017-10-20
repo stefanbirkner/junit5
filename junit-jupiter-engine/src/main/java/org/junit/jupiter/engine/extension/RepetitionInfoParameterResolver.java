@@ -64,12 +64,10 @@ class RepetitionInfoParameterResolver implements ParameterResolver {
 
 		@Override
 		public String toString() {
-			// @formatter:off
 			return new ToStringBuilder(this)
 					.append("currentRepetition", this.currentRepetition)
 					.append("totalRepetitions", this.totalRepetitions)
 					.toString();
-			// @formatter:on
 		}
 
 	}

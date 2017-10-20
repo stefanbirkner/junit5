@@ -63,12 +63,10 @@ class CsvFileArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<
 
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-		// @formatter:off
 		return Arrays.stream(resources)
 				.map(resource -> openInputStream(context, resource))
 				.map(this::createCsvParser)
 				.flatMap(this::toStream);
-		// @formatter:on
 	}
 
 	private InputStream openInputStream(ExtensionContext context, String resource) {

@@ -93,7 +93,6 @@ class ParameterResolverTests extends AbstractJupiterTestEngineTests {
 		assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		Predicate<String> expectations = s ->
 				s.contains("NullIntegerParameterResolver") &&
 				s.contains("resolved a null value for parameter") &&
@@ -104,7 +103,6 @@ class ParameterResolverTests extends AbstractJupiterTestEngineTests {
 				test("injectPrimitive"),
 				finishedWithFailure(allOf(isA(ParameterResolutionException.class), message(expectations)))
 			));
-		// @formatter:on
 	}
 
 	@Test
@@ -134,7 +132,6 @@ class ParameterResolverTests extends AbstractJupiterTestEngineTests {
 		assertEquals(2, eventRecorder.getTestSuccessfulCount(), "# tests succeeded");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		Predicate<String> expectations = s ->
 				s.contains("NumberParameterResolver") &&
 				s.contains("resolved a value of type [java.lang.Integer]") &&
@@ -145,7 +142,6 @@ class ParameterResolverTests extends AbstractJupiterTestEngineTests {
 				test("doubleParameterInjection"),
 				finishedWithFailure(allOf(isA(ParameterResolutionException.class), message(expectations)
 			))));
-		// @formatter:on
 	}
 
 	@Test

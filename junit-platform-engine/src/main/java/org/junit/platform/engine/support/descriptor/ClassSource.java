@@ -151,11 +151,9 @@ public class ClassSource implements TestSource {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("className", this.className)
 				.append("filePosition", this.filePosition)
 				.toString();
-		// @formatter:on
 	}
 }

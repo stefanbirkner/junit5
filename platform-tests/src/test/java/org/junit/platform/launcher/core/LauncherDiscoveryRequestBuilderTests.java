@@ -58,12 +58,10 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void modulesAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(
 							selectModule("java.base")
 					).build();
-			// @formatter:on
 
 			List<String> packageSelectors = discoveryRequest.getSelectorsByType(ModuleSelector.class).stream().map(
 				ModuleSelector::getModuleName).collect(toList());
@@ -72,12 +70,10 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void packagesAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(
 							selectPackage("org.junit.platform.engine")
 					).build();
-			// @formatter:on
 
 			List<String> packageSelectors = discoveryRequest.getSelectorsByType(PackageSelector.class).stream().map(
 				PackageSelector::getPackageName).collect(toList());
@@ -86,14 +82,12 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void classesAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(
 							selectClass(LauncherDiscoveryRequestBuilderTests.class.getName()),
 							selectClass(SampleTestClass.class)
 					)
 				.build();
-			// @formatter:on
 
 			List<Class<?>> classes = discoveryRequest.getSelectorsByType(ClassSelector.class).stream().map(
 				ClassSelector::getJavaClass).collect(toList());
@@ -102,11 +96,9 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void methodsByFullyQualifiedNameAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(selectMethod(fullyQualifiedMethodName()))
 					.build();
-			// @formatter:on
 
 			List<MethodSelector> methodSelectors = discoveryRequest.getSelectorsByType(MethodSelector.class);
 			assertThat(methodSelectors).hasSize(1);
@@ -121,11 +113,9 @@ class LauncherDiscoveryRequestBuilderTests {
 			Class<?> testClass = SampleTestClass.class;
 			Method testMethod = testClass.getDeclaredMethod("test");
 
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(selectMethod(SampleTestClass.class.getName(), "test"))
 					.build();
-			// @formatter:on
 
 			List<MethodSelector> methodSelectors = discoveryRequest.getSelectorsByType(MethodSelector.class);
 			assertThat(methodSelectors).hasSize(1);
@@ -140,12 +130,10 @@ class LauncherDiscoveryRequestBuilderTests {
 			Class<?> testClass = SampleTestClass.class;
 			Method testMethod = testClass.getDeclaredMethod("test");
 
-			// @formatter:off
 			DefaultDiscoveryRequest discoveryRequest = (DefaultDiscoveryRequest) request()
 					.selectors(
 							selectMethod(testClass, "test")
 					).build();
-			// @formatter:on
 
 			List<MethodSelector> methodSelectors = discoveryRequest.getSelectorsByType(MethodSelector.class);
 			assertThat(methodSelectors).hasSize(1);
@@ -160,13 +148,11 @@ class LauncherDiscoveryRequestBuilderTests {
 			UniqueId id1 = UniqueId.forEngine("engine").append("foo", "id1");
 			UniqueId id2 = UniqueId.forEngine("engine").append("foo", "id2");
 
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.selectors(
 							selectUniqueId(id1),
 							selectUniqueId(id2)
 					).build();
-			// @formatter:on
 
 			List<String> uniqueIds = discoveryRequest.getSelectorsByType(UniqueIdSelector.class).stream().map(
 				UniqueIdSelector::getUniqueId).map(Object::toString).collect(toList());
@@ -184,11 +170,9 @@ class LauncherDiscoveryRequestBuilderTests {
 			TestEngine engine2 = new TestEngineStub("engine2");
 			TestEngine engine3 = new TestEngineStub("engine3");
 
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.filters(includeEngines(engine1.getId(), engine2.getId()))
 					.build();
-			// @formatter:on
 
 			List<EngineFilter> filters = discoveryRequest.getEngineFilters();
 			assertThat(filters).hasSize(1);
@@ -201,13 +185,11 @@ class LauncherDiscoveryRequestBuilderTests {
 		@Test
 		@SuppressWarnings("rawtypes")
 		void discoveryFiltersAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.filters(
 							new DiscoveryFilterStub("filter1"),
 							new DiscoveryFilterStub("filter2")
 					).build();
-			// @formatter:on
 
 			List<String> filterStrings = discoveryRequest.getFiltersByType(DiscoveryFilter.class).stream().map(
 				DiscoveryFilter::toString).collect(toList());
@@ -217,13 +199,11 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void postDiscoveryFiltersAreStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.filters(
 							new PostDiscoveryFilterStub("postFilter1"),
 							new PostDiscoveryFilterStub("postFilter2")
 					).build();
-			// @formatter:on
 
 			List<String> filterStrings = discoveryRequest.getPostDiscoveryFilters().stream().map(
 				PostDiscoveryFilter::toString).collect(toList());
@@ -255,11 +235,9 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void configurationParameterAddedDirectly_isStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.configurationParameter("key", "value")
 					.build();
-			// @formatter:on
 
 			ConfigurationParameters configParams = discoveryRequest.getConfigurationParameters();
 			assertThat(configParams.get("key")).contains("value");
@@ -267,12 +245,10 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void configurationParameterAddedDirectlyTwice_overridesPreviousValueInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.configurationParameter("key", "value")
 					.configurationParameter("key", "value-new")
 					.build();
-			// @formatter:on
 
 			ConfigurationParameters configParams = discoveryRequest.getConfigurationParameters();
 			assertThat(configParams.get("key")).contains("value-new");
@@ -280,12 +256,10 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void multipleConfigurationParametersAddedDirectly_areStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.configurationParameter("key1", "value1")
 					.configurationParameter("key2", "value2")
 					.build();
-			// @formatter:on
 
 			ConfigurationParameters configParams = discoveryRequest.getConfigurationParameters();
 			assertThat(configParams.get("key1")).contains("value1");
@@ -294,11 +268,9 @@ class LauncherDiscoveryRequestBuilderTests {
 
 		@Test
 		void configurationParameterAddedByMap_isStoredInDiscoveryRequest() {
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.configurationParameters(singletonMap("key", "value"))
 					.build();
-			// @formatter:on
 
 			ConfigurationParameters configParams = discoveryRequest.getConfigurationParameters();
 			assertThat(configParams.get("key")).contains("value");
@@ -310,11 +282,9 @@ class LauncherDiscoveryRequestBuilderTests {
 			configurationParams.put("key1", "value1");
 			configurationParams.put("key2", "value2");
 
-			// @formatter:off
 			LauncherDiscoveryRequest discoveryRequest = request()
 					.configurationParameters(configurationParams)
 					.build();
-			// @formatter:on
 
 			ConfigurationParameters configParams = discoveryRequest.getConfigurationParameters();
 			assertThat(configParams.get("key1")).contains("value1");

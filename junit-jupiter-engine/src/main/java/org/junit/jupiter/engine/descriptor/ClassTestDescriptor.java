@@ -131,14 +131,12 @@ public class ClassTestDescriptor extends JupiterTestDescriptor {
 		ClassExtensionContext extensionContext = new ClassExtensionContext(context.getExtensionContext(),
 			context.getExecutionListener(), this, throwableCollector);
 
-		// @formatter:off
 		return context.extend()
 				.withTestInstanceProvider(testInstanceProvider(context, registry, extensionContext, lifecycle))
 				.withExtensionRegistry(registry)
 				.withExtensionContext(extensionContext)
 				.withThrowableCollector(throwableCollector)
 				.build();
-		// @formatter:on
 	}
 
 	@Override

@@ -67,7 +67,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 
 			// OuterTestCase
@@ -93,7 +92,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 			"afterEachMethodOuter"
 
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -108,7 +106,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"fooBeforeTestExecutionCallback",
 			"barBeforeTestExecutionCallback",
@@ -116,7 +113,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 			"barAfterTestExecutionCallback",
 			"fooAfterTestExecutionCallback"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -131,7 +127,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 
 			// Test Interface
@@ -149,7 +144,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 			"fooAfterTestExecutionCallback"
 
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 	}
 
 	@Test
@@ -165,7 +159,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"beforeEachMethod", // throws an exception.
 				// fooBeforeTestExecutionCallback should not get invoked.
@@ -173,7 +166,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 				// fooAfterTestExecutionCallback should not get invoked.
 			"afterEachMethod"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertNull(actualExceptionInAfterTestExecution,
 			"test exception (fooAfterTestExecutionCallback should not have been called)");
@@ -192,7 +184,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"beforeEachMethod",
 				"fooBeforeTestExecutionCallback",
@@ -203,7 +194,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 				"fooAfterTestExecutionCallback",
 			"afterEachMethod"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertNotNull(actualExceptionInAfterTestExecution, "test exception");
 		assertTrue(actualExceptionInAfterTestExecution.isPresent(), "test exception should be present");
@@ -223,7 +213,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"beforeEachMethod",
 				"fooBeforeTestExecutionCallback",
@@ -234,7 +223,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 				"fooAfterTestExecutionCallback",
 			"afterEachMethod"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertNotNull(actualExceptionInAfterTestExecution, "test exception");
 		assertTrue(actualExceptionInAfterTestExecution.isPresent(), "test exception should be present");
@@ -254,7 +242,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 		assertEquals(0, eventRecorder.getTestAbortedCount(), "# tests aborted");
 		assertEquals(1, eventRecorder.getTestFailedCount(), "# tests failed");
 
-		// @formatter:off
 		assertEquals(asList(
 			"beforeEachMethod",
 				"fooBeforeTestExecutionCallback",
@@ -262,7 +249,6 @@ class BeforeAndAfterTestExecutionCallbackTests extends AbstractJupiterTestEngine
 				"fooAfterTestExecutionCallback",
 			"afterEachMethod"
 		), callSequence, "wrong call sequence");
-		// @formatter:on
 
 		assertNotNull(actualExceptionInAfterTestExecution, "test exception");
 		assertTrue(actualExceptionInAfterTestExecution.isPresent(), "test exception should be present");

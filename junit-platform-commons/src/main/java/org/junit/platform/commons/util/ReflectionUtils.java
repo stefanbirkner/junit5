@@ -128,7 +128,6 @@ public final class ReflectionUtils {
 	private static final Map<Class<?>, Class<?>> primitiveToWrapperMap;
 
 	static {
-		// @formatter:off
 		List<Class<?>> commonTypes = Arrays.asList(
 			boolean.class,
 			byte.class,
@@ -187,7 +186,6 @@ public final class ReflectionUtils {
 			Double[][].class,
 			String[][].class
 		);
-		// @formatter:on
 
 		Map<String, Class<?>> classNamesToTypes = new HashMap<>(64);
 
@@ -594,7 +592,6 @@ public final class ReflectionUtils {
 		// This is risky since it depends on the name of the field which is nowhere guaranteed
 		// but has been stable so far in all JDKs
 
-		// @formatter:off
 		return Arrays.stream(inner.getClass().getDeclaredFields())
 				.filter(field -> field.getName().startsWith("this$"))
 				.findFirst()
@@ -606,18 +603,15 @@ public final class ReflectionUtils {
 						throw ExceptionUtils.throwAsUncheckedException(t);
 					}
 				});
-		// @formatter:on
 	}
 
 	public static Set<Path> getAllClasspathRootDirectories() {
 		// This is quite a hack, since sometimes the classpath is quite different
 		String fullClassPath = System.getProperty("java.class.path");
-		// @formatter:off
 		return Arrays.stream(fullClassPath.split(File.pathSeparator))
 				.map(Paths::get)
 				.filter(Files::isDirectory)
 				.collect(toSet());
-		// @formatter:on
 	}
 
 	/**
@@ -765,11 +759,9 @@ public final class ReflectionUtils {
 			return EMPTY_CLASS_ARRAY;
 		}
 
-		// @formatter:off
 		return Arrays.stream(parameterTypeNames.split(","))
 				.map(typeName -> loadRequiredParameterType(clazz, methodName, typeName))
 				.toArray(Class[]::new);
-		// @formatter:on
 	}
 
 	private static Class<?> loadRequiredParameterType(Class<?> clazz, String methodName, String typeName) {
@@ -843,12 +835,10 @@ public final class ReflectionUtils {
 		Preconditions.notNull(predicate, "Predicate must not be null");
 		Preconditions.notNull(traversalMode, "HierarchyTraversalMode must not be null");
 
-		// @formatter:off
 		return findAllMethodsInHierarchy(clazz, traversalMode).stream()
 				.filter(predicate)
 				// unmodifiable since returned by public, non-internal method(s)
 				.collect(toUnmodifiableList());
-		// @formatter:on
 	}
 
 	/**
@@ -859,7 +849,6 @@ public final class ReflectionUtils {
 		Preconditions.notNull(clazz, "Class must not be null");
 		Preconditions.notNull(traversalMode, "HierarchyTraversalMode must not be null");
 
-		// @formatter:off
 		List<Method> localMethods = getDeclaredMethods(clazz, traversalMode).stream()
 				.filter(method -> !method.isSynthetic())
 				.collect(toList());
@@ -869,7 +858,6 @@ public final class ReflectionUtils {
 		List<Method> interfaceMethods = getInterfaceMethods(clazz, traversalMode).stream()
 				.filter(method -> !isMethodShadowedByLocalMethods(method, localMethods))
 				.collect(toList());
-		// @formatter:on
 
 		List<Method> methods = new ArrayList<>();
 		if (traversalMode == TOP_DOWN) {
@@ -926,7 +914,6 @@ public final class ReflectionUtils {
 	 * in the Java Language Specification
 	 */
 	private static List<Method> getDefaultMethods(Class<?> clazz) {
-		// @formatter:off
 		// Visible default methods are interface default methods that have not
 		// been overridden.
 		List<Method> visibleDefaultMethods = Arrays.stream(clazz.getMethods())
@@ -940,16 +927,13 @@ public final class ReflectionUtils {
 				.flatMap(List::stream)
 				.filter(visibleDefaultMethods::contains)
 				.collect(toCollection(ArrayList::new));
-		// @formatter:on
 	}
 
 	private static List<Method> toSortedMutableList(Method[] methods) {
-		// @formatter:off
 		return Arrays.stream(methods)
 				.sorted(ReflectionUtils::defaultMethodSorter)
 				// Use toCollection() instead of toList() to ensure list is mutable.
 				.collect(toCollection(ArrayList::new));
-		// @formatter:on
 	}
 
 	/**
@@ -973,7 +957,6 @@ public final class ReflectionUtils {
 		List<Method> allInterfaceMethods = new ArrayList<>();
 		for (Class<?> ifc : clazz.getInterfaces()) {
 
-			// @formatter:off
 			List<Method> localInterfaceMethods = getMethods(ifc).stream()
 					.filter(m -> !isAbstract(m))
 					.collect(toList());
@@ -981,7 +964,6 @@ public final class ReflectionUtils {
 			List<Method> superinterfaceMethods = getInterfaceMethods(ifc, traversalMode).stream()
 					.filter(method -> !isMethodShadowedByLocalMethods(method, localInterfaceMethods))
 					.collect(toList());
-			// @formatter:on
 
 			if (traversalMode == TOP_DOWN) {
 				allInterfaceMethods.addAll(superinterfaceMethods);

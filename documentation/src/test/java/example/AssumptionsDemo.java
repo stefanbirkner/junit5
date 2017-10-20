@@ -10,7 +10,6 @@
 
 package example;
 
-// @formatter:off
 // tag::user_guide[]
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -47,4 +46,3 @@ class AssumptionsDemo {
 
 }
 // end::user_guide[]
-// @formatter:on

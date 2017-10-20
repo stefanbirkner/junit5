@@ -40,12 +40,10 @@ class OverloadedTestMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectClass(TestCase.class)).build();
 		ExecutionEventRecorder eventRecorder1 = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(2, eventRecorder1.getTestStartedCount(), "# tests started"),
 				() -> assertEquals(2, eventRecorder1.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder1.getTestFailedCount(), "# tests failed"));
-		// @formatter:on
 
 		Optional<ExecutionEvent> first = eventRecorder1.getSuccessfulTestFinishedEvents().stream().filter(
 			event -> event.getTestDescriptor().getUniqueId().toString().contains(TestInfo.class.getName())).findFirst();
@@ -56,12 +54,10 @@ class OverloadedTestMethodTests extends AbstractJupiterTestEngineTests {
 		request = request().selectors(selectUniqueId(uniqueId)).build();
 		ExecutionEventRecorder eventRecorder2 = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(1, eventRecorder2.getTestStartedCount(), "# tests started"),
 				() -> assertEquals(1, eventRecorder2.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder2.getTestFailedCount(), "# tests failed"));
-		// @formatter:on
 
 		first = eventRecorder2.getSuccessfulTestFinishedEvents().stream().filter(
 			event -> event.getTestDescriptor().getUniqueId().toString().contains(TestInfo.class.getName())).findFirst();
@@ -74,12 +70,10 @@ class OverloadedTestMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectMethod(fqmn)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertEquals(1, eventRecorder.getTestStartedCount(), "# tests started"),
 				() -> assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed"));
-		// @formatter:on
 
 		Optional<ExecutionEvent> first = eventRecorder.getSuccessfulTestFinishedEvents().stream().filter(
 			event -> event.getTestDescriptor().getUniqueId().toString().contains(TestInfo.class.getName())).findFirst();

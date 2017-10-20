@@ -125,12 +125,10 @@ public class ClasspathResourceSource implements TestSource {
 
 	@Override
 	public String toString() {
-		// @formatter:off
 		return new ToStringBuilder(this)
 				.append("classpathResourceName", this.classpathResourceName)
 				.append("filePosition", this.filePosition)
 				.toString();
-		// @formatter:on
 	}
 
 }

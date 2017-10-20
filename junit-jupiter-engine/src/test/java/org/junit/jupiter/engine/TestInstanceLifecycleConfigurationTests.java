@@ -125,7 +125,6 @@ class TestInstanceLifecycleConfigurationTests extends AbstractJupiterTestEngineT
 	private void performAssertions(Class<?> testClass, Map<String, String> configParams, int containers,
 			int failedContainers, int tests, String... methods) {
 
-		// @formatter:off
 		ExecutionEventRecorder eventRecorder = executeTests(
 			request()
 				.selectors(selectClass(testClass))
@@ -141,7 +140,6 @@ class TestInstanceLifecycleConfigurationTests extends AbstractJupiterTestEngineT
 			() -> assertEquals(tests, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 			() -> assertEquals(Arrays.asList(methods), methodsInvoked)
 		);
-		// @formatter:on
 	}
 
 	// -------------------------------------------------------------------------

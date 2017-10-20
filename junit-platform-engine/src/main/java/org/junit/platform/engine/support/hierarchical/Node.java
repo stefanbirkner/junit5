@@ -159,12 +159,10 @@ public interface Node<C extends EngineExecutionContext> {
 
 		@Override
 		public String toString() {
-			// @formatter:off
 			return new ToStringBuilder(this)
 					.append("skipped", this.skipped)
 					.append("reason", this.reason.orElse("<unknown>"))
 					.toString();
-			// @formatter:on
 		}
 	}
 

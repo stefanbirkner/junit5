@@ -86,13 +86,11 @@ class ClasspathScanner {
 	 * Recursively scan for classes in all of the supplied source directories.
 	 */
 	private List<Class<?>> findClassesForUris(List<URI> baseUris, String basePackageName, ClassFilter classFilter) {
-		// @formatter:off
 		return baseUris.stream()
 				.map(baseUri -> findClassesForUri(baseUri, basePackageName, classFilter))
 				.flatMap(Collection::stream)
 				.distinct()
 				.collect(toList());
-		// @formatter:on
 	}
 
 	private List<Class<?>> findClassesForUri(URI baseUri, String basePackageName, ClassFilter classFilter) {
@@ -128,11 +126,9 @@ class ClasspathScanner {
 			String fullyQualifiedClassName = determineFullyQualifiedClassName(baseDir, basePackageName, classFile);
 			if (classFilter.match(fullyQualifiedClassName)) {
 				try {
-					// @formatter:off
 					loadClass.apply(fullyQualifiedClassName, getClassLoader())
 							.filter(classFilter) // Always use ".filter(classFilter)" to include future predicates.
 							.ifPresent(classConsumer);
-					// @formatter:on
 				}
 				catch (InternalError internalError) {
 					handleInternalError(classFile, fullyQualifiedClassName, internalError);
@@ -145,7 +141,6 @@ class ClasspathScanner {
 	}
 
 	private String determineFullyQualifiedClassName(Path baseDir, String basePackageName, Path classFile) {
-		// @formatter:off
 		return Stream.of(
 					basePackageName,
 					determineSubpackageName(baseDir, classFile),
@@ -153,7 +148,6 @@ class ClasspathScanner {
 				)
 				.filter(value -> !value.isEmpty()) // Handle default package appropriately.
 				.collect(joining(PACKAGE_SEPARATOR_STRING));
-		// @formatter:on
 	}
 
 	private String determineSimpleClassName(Path classFile) {

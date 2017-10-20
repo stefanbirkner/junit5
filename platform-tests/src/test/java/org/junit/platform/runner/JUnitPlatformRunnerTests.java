@@ -628,7 +628,6 @@ class JUnitPlatformRunnerTests {
 			Description containerDescription = getOnlyElement(engineDescription.getChildren());
 			Description testDescription = getOnlyElement(containerDescription.getChildren());
 
-			// @formatter:off
 			assertAll(
 					() -> assertEquals("dummy", engineDescription.getDisplayName(), "engine display name"),
 					() -> assertEquals("dummy", engineDescription.getClassName(), "engine class name"),
@@ -640,7 +639,6 @@ class JUnitPlatformRunnerTests {
 					() -> assertEquals("containerDisplayName", testDescription.getClassName(), "test class name"),
 					() -> assertEquals("testDisplayName", testDescription.getMethodName(), "test method name")
 			);
-			// @formatter:on
 		}
 
 		@Test
@@ -664,7 +662,6 @@ class JUnitPlatformRunnerTests {
 			Description containerDescription = getOnlyElement(engineDescription.getChildren());
 			Description testDescription = getOnlyElement(containerDescription.getChildren());
 
-			// @formatter:off
 			assertAll(
 					() -> assertEquals("dummy", engineDescription.getDisplayName(), "engine display name"),
 					() -> assertEquals("dummy", engineDescription.getClassName(), "engine class name"),
@@ -676,7 +673,6 @@ class JUnitPlatformRunnerTests {
 					() -> assertEquals(getClass().getName(), testDescription.getClassName(), "test class name"),
 					() -> assertEquals("failingTest", testDescription.getMethodName(), "test method name")
 			);
-			// @formatter:on
 		}
 
 		void failingTest() {

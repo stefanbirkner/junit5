@@ -49,14 +49,12 @@ class TagFilterTests {
 
 	@Test
 	void includeTagsWithInvalidSyntax() {
-		// @formatter:off
 		assertAll(
 			() -> assertSyntaxViolationForIncludes(null),
 			() -> assertSyntaxViolationForIncludes(""),
 			() -> assertSyntaxViolationForIncludes("   "),
 			() -> assertSyntaxViolationForIncludes("foo bar")
 		);
-		// @formatter:on
 	}
 
 	private void assertSyntaxViolationForIncludes(String tag) {
@@ -67,14 +65,12 @@ class TagFilterTests {
 
 	@Test
 	void excludeTagsWithInvalidSyntax() {
-		// @formatter:off
 		assertAll(
 			() -> assertSyntaxViolationForExcludes(null),
 			() -> assertSyntaxViolationForExcludes(""),
 			() -> assertSyntaxViolationForExcludes("   "),
 			() -> assertSyntaxViolationForExcludes("foo bar")
 		);
-		// @formatter:on
 	}
 
 	private void assertSyntaxViolationForExcludes(String tag) {

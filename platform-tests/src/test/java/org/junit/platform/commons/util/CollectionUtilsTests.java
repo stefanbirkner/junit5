@@ -197,7 +197,6 @@ class CollectionUtilsTests {
 
 	@TestFactory
 	Stream<DynamicTest> toStreamWithPrimitiveArrays() {
-		//@formatter:off
 		return Stream.of(
 				dynamicTest("boolean[]",
 						() -> toStreamWithPrimitiveArray(new boolean[] { true, false })),
@@ -216,7 +215,6 @@ class CollectionUtilsTests {
 				dynamicTest("short[]",
 						() -> toStreamWithPrimitiveArray(new short[] { 0, Short.MIN_VALUE, Short.MAX_VALUE }))
 		);
-		//@formatter:on
 	}
 
 	private void toStreamWithPrimitiveArray(Object primitiveArray) {

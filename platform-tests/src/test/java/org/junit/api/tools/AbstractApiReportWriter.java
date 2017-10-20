@@ -40,11 +40,9 @@ abstract class AbstractApiReportWriter implements ApiReportWriter {
 
 	@Override
 	public void printDeclarationInfo(PrintWriter out, EnumSet<Status> statuses) {
-		// @formatter:off
 		this.apiReport.getDeclarationsMap().entrySet().stream()
 				.filter(e -> statuses.contains(e.getKey()))
 				.forEach(e -> printDeclarationSection(e.getKey(), e.getValue(), out));
-		// @formatter:on
 	}
 
 	protected void printDeclarationSection(Status status, List<Class<?>> types, PrintWriter out) {

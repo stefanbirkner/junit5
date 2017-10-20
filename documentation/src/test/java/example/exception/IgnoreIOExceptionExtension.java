@@ -15,7 +15,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 
-// @formatter:off
 // tag::user_guide[]
 public class IgnoreIOExceptionExtension implements TestExecutionExceptionHandler {
 
@@ -30,4 +29,3 @@ public class IgnoreIOExceptionExtension implements TestExecutionExceptionHandler
 	}
 }
 // end::user_guide[]
-// @formatter:on

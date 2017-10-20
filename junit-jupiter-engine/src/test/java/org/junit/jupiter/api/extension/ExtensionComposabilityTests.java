@@ -45,7 +45,6 @@ class ExtensionComposabilityTests {
 
 		// 2) Determine which methods we expect the kitchen sink to implement...
 
-		// @formatter:off
 		List<Method> expectedMethods = extensionApis.stream()
 				.map(Class::getDeclaredMethods)
 				.flatMap(Arrays::stream)
@@ -60,7 +59,6 @@ class ExtensionComposabilityTests {
 				.map(Method::getName)
 				.sorted()
 				.collect(toList());
-		// @formatter:on
 
 		// 3) Dynamically implement all Extension APIs
 		Object dynamicKitchenSinkExtension = Proxy.newProxyInstance(getClass().getClassLoader(),
@@ -68,7 +66,6 @@ class ExtensionComposabilityTests {
 
 		// 4) Determine what ended up in the kitchen sink...
 
-		// @formatter:off
 		List<Method> actualMethods = Arrays.stream(dynamicKitchenSinkExtension.getClass().getDeclaredMethods())
 				.collect(toList());
 
@@ -83,7 +80,6 @@ class ExtensionComposabilityTests {
 				.distinct()
 				.sorted()
 				.collect(toList());
-		// @formatter:on
 
 		// 5) Remove methods from java.lang.Object
 		actualMethodSignatures.remove("equals(Object)");
@@ -95,12 +91,10 @@ class ExtensionComposabilityTests {
 
 		// 6) Verify our expectations
 
-		// @formatter:off
 		assertAll(
 				() -> assertThat(actualMethodSignatures).isEqualTo(expectedMethodSignatures),
 				() -> assertThat(actualMethodNames).isEqualTo(expectedMethodNames)
 		);
-		// @formatter:on
 	}
 
 	private boolean isExtensionApi(Class<?> candidate) {

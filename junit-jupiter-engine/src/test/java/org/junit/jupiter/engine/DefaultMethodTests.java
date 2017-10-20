@@ -60,7 +60,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectMethod(fqmn)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertTrue(beforeAllInvoked, "@BeforeAll static method invoked from interface"),
 				() -> assertTrue(afterAllInvoked, "@AfterAll static method invoked from interface"),
@@ -69,7 +68,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 				() -> assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed")
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -78,7 +76,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectMethod(fqmn)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertTrue(beforeAllInvoked, "@BeforeAll default method invoked from interface"),
 				() -> assertTrue(afterAllInvoked, "@AfterAll default method invoked from interface"),
@@ -88,7 +85,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 				() -> assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed")
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -99,7 +95,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectMethod(fqmn)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertTrue(beforeAllInvoked, "@BeforeAll default method invoked from interface"),
 				() -> assertTrue(afterAllInvoked, "@AfterAll default method invoked from interface"),
@@ -109,7 +104,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 				() -> assertEquals(1, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed")
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -118,7 +112,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectClass(clazz)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertTrue(beforeAllInvoked, "@BeforeAll default method invoked from interface"),
 				() -> assertTrue(afterAllInvoked, "@AfterAll default method invoked from interface"),
@@ -128,7 +121,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 				() -> assertEquals(2, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed")
 		);
-		// @formatter:on
 	}
 
 	@Test
@@ -137,7 +129,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 		LauncherDiscoveryRequest request = request().selectors(selectClass(clazz)).build();
 		ExecutionEventRecorder eventRecorder = executeTests(request);
 
-		// @formatter:off
 		assertAll(
 				() -> assertTrue(beforeAllInvoked, "@BeforeAll default method invoked from interface"),
 				() -> assertTrue(afterAllInvoked, "@AfterAll default method invoked from interface"),
@@ -152,7 +143,6 @@ class DefaultMethodTests extends AbstractJupiterTestEngineTests {
 				() -> assertEquals(2, eventRecorder.getTestSuccessfulCount(), "# tests succeeded"),
 				() -> assertEquals(0, eventRecorder.getTestFailedCount(), "# tests failed")
 		);
-		// @formatter:on
 	}
 
 	// -------------------------------------------------------------------------

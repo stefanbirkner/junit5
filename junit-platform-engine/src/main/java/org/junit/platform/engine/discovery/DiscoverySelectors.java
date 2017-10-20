@@ -203,14 +203,12 @@ public final class DiscoverySelectors {
 	public static List<ClasspathRootSelector> selectClasspathRoots(Set<Path> classpathRoots) {
 		Preconditions.notNull(classpathRoots, "classpathRoots must not be null");
 
-		// @formatter:off
 		return classpathRoots.stream()
 				.filter(Files::exists)
 				.map(Path::toUri)
 				.map(ClasspathRootSelector::new)
 				// unmodifiable since selectClasspathRoots is a public, non-internal method
 				.collect(toUnmodifiableList());
-		// @formatter:on
 	}
 
 	/**
@@ -269,12 +267,10 @@ public final class DiscoverySelectors {
 		Preconditions.notNull(moduleNames, "moduleNames must not be null");
 		Preconditions.containsNoNullElements(moduleNames, "individual module name must not be null");
 
-		// @formatter:off
 		return moduleNames.stream()
 				.map(DiscoverySelectors::selectModule)
 				// unmodifiable since this is a public, non-internal method
 				.collect(toUnmodifiableList());
-		// @formatter:on
 	}
 
 	/**

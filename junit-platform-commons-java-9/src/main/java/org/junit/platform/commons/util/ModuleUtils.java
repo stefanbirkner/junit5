@@ -64,14 +64,12 @@ public class ModuleUtils {
 	 * potentially empty
 	 */
 	public static Set<String> findAllNonSystemBootModuleNames() {
-		// @formatter:off
 		Set<String> systemModules = ModuleFinder.ofSystem().findAll().stream()
 				.map(reference -> reference.descriptor().name())
 				.collect(toSet());
 		return boot(name -> !systemModules.contains(name))
 				.map(ResolvedModule::name)
 				.collect(toCollection(LinkedHashSet::new));
-		// @formatter:on
 	}
 
 	/**
@@ -105,11 +103,9 @@ public class ModuleUtils {
 		Preconditions.notNull(filter, "Class filter must not be null");
 
 		logger.debug(() -> "Looking for classes in module: " + moduleName);
-		// @formatter:off
 		Set<ModuleReference> moduleReferences = boot(isEqual(moduleName))
 				.map(ResolvedModule::reference)
 				.collect(toSet());
-		// @formatter:on
 		return scan(moduleReferences, filter, ModuleUtils.class.getClassLoader());
 	}
 
@@ -150,7 +146,6 @@ public class ModuleUtils {
 		List<Class<?>> scan(ModuleReference reference) {
 			try (ModuleReader reader = reference.open()) {
 				try (Stream<String> names = reader.list()) {
-					// @formatter:off
 					return names.filter(name -> name.endsWith(".class"))
 							.map(this::className)
 							.filter(name -> !name.equals("module-info"))
@@ -158,7 +153,6 @@ public class ModuleUtils {
 							.map(this::loadClassUnchecked)
 							.filter(classFilter::match)
 							.collect(Collectors.toList());
-					// @formatter:on
 				}
 			}
 			catch (IOException e) {

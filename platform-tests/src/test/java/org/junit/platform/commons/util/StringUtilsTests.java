@@ -33,19 +33,16 @@ class StringUtilsTests {
 
 	@Test
 	void blankness() {
-		// @formatter:off
 		assertAll("Blankness",
 			() -> assertTrue(isBlank(null)),
 			() -> assertTrue(isBlank("")),
 			() -> assertTrue(isBlank(" \t\n\r")),
 			() -> assertTrue(isNotBlank("."))
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void whitespace() {
-		// @formatter:off
 		assertAll("Whitespace",
 			() -> shouldContainWhitespace("   "),
 			() -> shouldContainWhitespace("\u005Ct"), // horizontal tab
@@ -63,12 +60,10 @@ class StringUtilsTests {
 			() -> shouldNotContainWhitespace("0123456789"),
 			() -> shouldNotContainWhitespace("$-_=+!@.,")
 		);
-		// @formatter:on
 	}
 
 	@Test
 	void controlCharacters() {
-		// @formatter:off
 		assertAll("ISO Control Characters",
 			() -> shouldContainIsoControlCharacter("\u005Ct"), // horizontal tab
 			() -> shouldContainIsoControlCharacter("\t"),
@@ -86,7 +81,6 @@ class StringUtilsTests {
 			() -> shouldNotContainIsoControlCharacter("   "),
 			() -> shouldNotContainIsoControlCharacter("hello world")
 		);
-		// @formatter:on
 	}
 
 	@Test
